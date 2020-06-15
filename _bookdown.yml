@@ -1,0 +1,5 @@
+book_filename: "BCC2020"
+delete_merged_file: true
+language:
+  ui:
+    chapter_name: "Chapter "

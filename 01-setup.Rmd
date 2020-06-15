@@ -1,0 +1,10 @@
+# Prerequisites
+
+## Create a google 'billing account'
+
+Generally, cloud resources cost money, and therefore require a method
+of payment. But DON'T WORRY, we won't incur any expenses during this
+course.
+
+## Create an AnVIL account
+

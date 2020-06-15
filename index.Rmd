@@ -1,0 +1,57 @@
+--- 
+title: "R / Bioconductor in the AnVIL Cloud"
+author: 
+- "Martin Morgan"
+- "Nitesh Turaga"
+- "Lori Shepherd"
+date: "July 17, July 18 2020"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib]
+biblio-style: apalike
+link-citations: yes
+description: >
+  This book contains material for a 2 1/2 hour course
+  offered at the Bioinformatics Community Conference 2020.
+---
+
+# About {-}
+
+[Bioconductor][] provides more than 1900 R packages for the analysis
+and comprehension of high-throughput genomic data. Most users install
+and run Bioconductor on a personal computer or perhaps use an academic
+cluster. Cloud-based solutions are increasing appealing, removing the
+headaches of local installation while providing access to (a) better,
+scalable computing resources; and (b) large-scale 'consortium' and
+other reference data sets. This session introduces the AnVIL cloud
+computing environment. We cover use of the cloud as a replacement to
+desktop-style computing; integrating workflows for 'upstream'
+processing of large data resources with interactive 'downstream'
+analysis and comprehension, using Human Cell Atlas single-cell
+datasets as an example; and querying cloud-based consortium data for
+integration with a users' own data sets.
+
+## Prerequisites {-}
+
+Participants should be comfortable working with R and RStudio.  Some
+familiarity with Bioconductor is helpful but not required.  No prior
+cloud-based experience is necessary. We will use the AnVIL cloud,
+which requires a modern web browser.
+
+## Learning objectives {-}
+
+The AnVIL cloud
+
+1. AnVIL workspaces
+
+1. RStudio and Jupyter Runtimes
+
+1. The AnVIL package for cloud access
+
+Cloud-based analysis
+
+1. Single cell exploratory analysis in RStudio
+
+1. Formal workflows for large-scale analysis
+
+[Bioconductor]: https://bioconductor.org

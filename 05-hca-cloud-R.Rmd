@@ -1,0 +1,11 @@
+# Interactive use: single cell exploration
+
+## Background
+
+### Biology of single cell sequencing
+
+### The Human Cell Atlas
+
+## Data discovery and export from the HCA
+
+## Exploratory analysis in R

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 1 Prerequisites | R / Bioconductor in the AnVIL Cloud</title>
+  <meta name="description" content="This book contains material for a 2 1/2 hour course offered at the Bioinformatics Community Conference 2020." />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 1 Prerequisites | R / Bioconductor in the AnVIL Cloud" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This book contains material for a 2 1/2 hour course offered at the Bioinformatics Community Conference 2020." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 1 Prerequisites | R / Bioconductor in the AnVIL Cloud" />
+  
+  <meta name="twitter:description" content="This book contains material for a 2 1/2 hour course offered at the Bioinformatics Community Conference 2020." />
+  
+
+<meta name="author" content="Martin Morgan" />
+<meta name="author" content="Nitesh Turaga" />
+<meta name="author" content="Lori Shepherd" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="the-anvil-workspaces-runtimes-buckets-workflows.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R / Bioconductor in the AnVIL Cloud</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#prerequisites"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#learning-objectives"><i class="fa fa-check"></i>Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="prerequisites-1.html"><a href="prerequisites-1.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a><ul>
+<li class="chapter" data-level="1.1" data-path="prerequisites-1.html"><a href="prerequisites-1.html#create-a-google-billing-account"><i class="fa fa-check"></i><b>1.1</b> Create a google ‘billing account’</a></li>
+<li class="chapter" data-level="1.2" data-path="prerequisites-1.html"><a href="prerequisites-1.html#create-an-anvil-account"><i class="fa fa-check"></i><b>1.2</b> Create an AnVIL account</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="the-anvil-workspaces-runtimes-buckets-workflows.html"><a href="the-anvil-workspaces-runtimes-buckets-workflows.html"><i class="fa fa-check"></i><b>2</b> The AnVIL – workspaces, runtimes, buckets, workflows</a><ul>
+<li class="chapter" data-level="2.1" data-path="the-anvil-workspaces-runtimes-buckets-workflows.html"><a href="the-anvil-workspaces-runtimes-buckets-workflows.html#workspaces"><i class="fa fa-check"></i><b>2.1</b> Workspaces</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="the-anvil-workspaces-runtimes-buckets-workflows.html"><a href="the-anvil-workspaces-runtimes-buckets-workflows.html#create-a-new-workspace"><i class="fa fa-check"></i><b>2.1.1</b> Create a new workspace</a></li>
+<li class="chapter" data-level="2.1.2" data-path="the-anvil-workspaces-runtimes-buckets-workflows.html"><a href="the-anvil-workspaces-runtimes-buckets-workflows.html#share-your-workspace-with-others"><i class="fa fa-check"></i><b>2.1.2</b> Share your workspace with others</a></li>
+<li class="chapter" data-level="2.1.3" data-path="the-anvil-workspaces-runtimes-buckets-workflows.html"><a href="the-anvil-workspaces-runtimes-buckets-workflows.html#use-an-existing-workspace"><i class="fa fa-check"></i><b>2.1.3</b> Use an existing workspace</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="the-anvil-workspaces-runtimes-buckets-workflows.html"><a href="the-anvil-workspaces-runtimes-buckets-workflows.html#runtimes"><i class="fa fa-check"></i><b>2.2</b> Runtimes</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="the-anvil-workspaces-runtimes-buckets-workflows.html"><a href="the-anvil-workspaces-runtimes-buckets-workflows.html#use-an-rstudio-runtime"><i class="fa fa-check"></i><b>2.2.1</b> Use an <em>RStudio</em> runtime</a></li>
+<li class="chapter" data-level="2.2.2" data-path="the-anvil-workspaces-runtimes-buckets-workflows.html"><a href="the-anvil-workspaces-runtimes-buckets-workflows.html#use-a-jupyter-notebook-with-r-kernel"><i class="fa fa-check"></i><b>2.2.2</b> Use a Jupyter notebook with <em>R</em> kernel</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="the-anvil-workspaces-runtimes-buckets-workflows.html"><a href="the-anvil-workspaces-runtimes-buckets-workflows.html#buckets"><i class="fa fa-check"></i><b>2.3</b> Buckets</a></li>
+<li class="chapter" data-level="2.4" data-path="the-anvil-workspaces-runtimes-buckets-workflows.html"><a href="the-anvil-workspaces-runtimes-buckets-workflows.html#workflows"><i class="fa fa-check"></i><b>2.4</b> Workflows</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="the-anvil-r-bioconductor-package.html"><a href="the-anvil-r-bioconductor-package.html"><i class="fa fa-check"></i><b>3</b> The AnVIL R / Bioconductor package</a><ul>
+<li class="chapter" data-level="3.1" data-path="the-anvil-r-bioconductor-package.html"><a href="the-anvil-r-bioconductor-package.html#install-the-anvil-package"><i class="fa fa-check"></i><b>3.1</b> Install the AnVIL package</a></li>
+<li class="chapter" data-level="3.2" data-path="the-anvil-r-bioconductor-package.html"><a href="the-anvil-r-bioconductor-package.html#workspace-compute-node-file-system"><i class="fa fa-check"></i><b>3.2</b> Workspace compute node file system</a></li>
+<li class="chapter" data-level="3.3" data-path="the-anvil-r-bioconductor-package.html"><a href="the-anvil-r-bioconductor-package.html#workspace-bucket"><i class="fa fa-check"></i><b>3.3</b> Workspace bucket</a></li>
+<li class="chapter" data-level="3.4" data-path="the-anvil-r-bioconductor-package.html"><a href="the-anvil-r-bioconductor-package.html#workspace-tables"><i class="fa fa-check"></i><b>3.4</b> Workspace tables</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="interactive-use-single-cell-exploration.html"><a href="interactive-use-single-cell-exploration.html"><i class="fa fa-check"></i><b>4</b> Interactive use: single cell exploration</a><ul>
+<li class="chapter" data-level="4.1" data-path="interactive-use-single-cell-exploration.html"><a href="interactive-use-single-cell-exploration.html#background"><i class="fa fa-check"></i><b>4.1</b> Background</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="interactive-use-single-cell-exploration.html"><a href="interactive-use-single-cell-exploration.html#biology-of-single-cell-sequencing"><i class="fa fa-check"></i><b>4.1.1</b> Biology of single cell sequencing</a></li>
+<li class="chapter" data-level="4.1.2" data-path="interactive-use-single-cell-exploration.html"><a href="interactive-use-single-cell-exploration.html#the-human-cell-atlas"><i class="fa fa-check"></i><b>4.1.2</b> The Human Cell Atlas</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="interactive-use-single-cell-exploration.html"><a href="interactive-use-single-cell-exploration.html#data-discovery-and-export-from-the-hca"><i class="fa fa-check"></i><b>4.2</b> Data discovery and export from the HCA</a></li>
+<li class="chapter" data-level="4.3" data-path="interactive-use-single-cell-exploration.html"><a href="interactive-use-single-cell-exploration.html#exploratory-analysis-in-r"><i class="fa fa-check"></i><b>4.3</b> Exploratory analysis in R</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="formal-work-flows-human-cell-atlas-optimus-pipeline.html"><a href="formal-work-flows-human-cell-atlas-optimus-pipeline.html"><i class="fa fa-check"></i><b>5</b> Formal work flows: Human Cell Atlas ‘Optimus’ pipeline</a><ul>
+<li class="chapter" data-level="5.1" data-path="formal-work-flows-human-cell-atlas-optimus-pipeline.html"><a href="formal-work-flows-human-cell-atlas-optimus-pipeline.html#the-hca-optimus-single-cell-analysis-pipeline"><i class="fa fa-check"></i><b>5.1</b> The HCA Optimus single cell analysis pipeline</a></li>
+<li class="chapter" data-level="5.2" data-path="formal-work-flows-human-cell-atlas-optimus-pipeline.html"><a href="formal-work-flows-human-cell-atlas-optimus-pipeline.html#running-a-work-flow"><i class="fa fa-check"></i><b>5.2</b> Running a work flow</a></li>
+<li class="chapter" data-level="5.3" data-path="formal-work-flows-human-cell-atlas-optimus-pipeline.html"><a href="formal-work-flows-human-cell-atlas-optimus-pipeline.html#using-data-in-r"><i class="fa fa-check"></i><b>5.3</b> Using data in <em>R</em></a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="next-steps.html"><a href="next-steps.html"><i class="fa fa-check"></i><b>6</b> Next steps</a><ul>
+<li class="chapter" data-level="6.1" data-path="next-steps.html"><a href="next-steps.html#shiny-apps"><i class="fa fa-check"></i><b>6.1</b> Shiny apps</a></li>
+<li class="chapter" data-level="6.2" data-path="next-steps.html"><a href="next-steps.html#protected-data-access"><i class="fa fa-check"></i><b>6.2</b> Protected data access</a></li>
+<li class="chapter" data-level="6.3" data-path="next-steps.html"><a href="next-steps.html#other-clouds"><i class="fa fa-check"></i><b>6.3</b> Other clouds</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R / Bioconductor in the AnVIL Cloud</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="prerequisites-1" class="section level1">
+<h1><span class="header-section-number">Chapter 1</span> Prerequisites</h1>
+<div id="create-a-google-billing-account" class="section level2">
+<h2><span class="header-section-number">1.1</span> Create a google ‘billing account’</h2>
+<p>Generally, cloud resources cost money, and therefore require a method
+of payment. But DON’T WORRY, we won’t incur any expenses during this
+course.</p>
+</div>
+<div id="create-an-anvil-account" class="section level2">
+<h2><span class="header-section-number">1.2</span> Create an AnVIL account</h2>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="the-anvil-workspaces-runtimes-buckets-workflows.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
