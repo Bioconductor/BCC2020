@@ -17,6 +17,17 @@ description: >
 
 # About {-}
 
+Venue: [Bioinformatics Community Conference][BCC]
+
+Date (US Eastern Time)
+
+- Western hemisphere: Friday July 17, 2020 12:15 - 14:45
+- Eastern hemisphere: Saturday July 18, 2020 21:00 - 23:30
+
+[BCC]: https://bcc2020.sched.com/
+
+## Abstract {-}
+
 [Bioconductor][] provides more than 1900 R packages for the analysis
 and comprehension of high-throughput genomic data. Most users install
 and run Bioconductor on a personal computer or perhaps use an academic
