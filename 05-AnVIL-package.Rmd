@@ -1,0 +1,300 @@
+# The AnVIL R / Bioconductor package
+
+In this section we learn about
+
+- Saving data to the current runtime
+- Saving or retrieving data from the workspace bucket
+- Manipulating the 'TABLES' metadata
+- 'Power-user' access to the underlying AnVIL software components
+
+Packages used include
+
+- [AnVIL][1] -- access AnVIL and Google cloud resources from within
+  R. The `AnVIL` package is under active development, and we use the
+  most recent version installed from Github.
+
+[1]: https://bioconductor.org/packages/AnVIL
+
+## _R / Bioconductor_ libraries
+
+We'll primarily use the `AnVIL` package, installed from github.
+
+```{r}
+github_packages <- "Bioconductor/AnVIL"
+idx <- ! basename(github_packages) %in% rownames(installed.packages())
+need <- github_packages[ idx ]
+BiocManager::install(need, update = FALSE)
+```
+
+We'll motivate the use of `AnVIL` using a previous work flow, and use
+of the `dplyr` package. The required packages can be installed with
+
+```{r}
+packages <- c("scRNAseq", "scater", "scran", "uwot", "dplyr")
+need <- packages[!packages %in% rownames(installed.packages())]
+BiocManager::install(need, update = FALSE)
+```
+
+Start by loading the `AnVIL` package.
+
+```{r}
+suppressPackageStartupMessages({
+    library(AnVIL)
+})
+```
+
+```{r, echo = FALSE}
+##
+## IGNORE THE FOLLOWING COMMANDS, necessary when creating this
+## document
+##
+suppressWarnings({
+    avworkspace_namespace("bioconductor-rpci-anvil")
+    avworkspace_name("Bioconductor-BCC2020")
+    tmp <- avbucket()
+})
+```
+
+## The _AnVIL_ workspace
+
+The central components of the AnVIL workspace are available. Each
+workspace has a 'namespace' (billing account) and 'name' (workspace
+name).
+
+```{r, eval = FALSE}
+avworkspace_namespace() # billing account
+avworkspace_name()      # workspace name
+```
+
+Each workspace has a google 'bucket' associated with it. The bucket is
+in existence for as long as the workspace, providing an area for
+persistent data storage across different kernels.
+
+```{r}
+avbucket()
+```
+
+## Saving analysis products
+
+### An abbreviated work flow
+
+Here's an abbreviated version of an earlier work flow
+
+```{r}
+## Necessary packages
+suppressPackageStartupMessages({
+    library(scRNAseq)
+    library(scater)
+    library(scran)
+})
+
+## Pre-configured data
+suppressMessages({
+    sce <- MacoskoRetinaData()
+})
+
+## QC
+is.mito <- grepl("^MT-", rownames(sce))
+qcstats <- perCellQCMetrics(sce, subsets=list(Mito=is.mito))
+filtered <- quickPerCellQC(qcstats, percent_subsets="subsets_Mito_percent")
+sce <- sce[, !filtered$discard]
+
+## Normalization
+sce <- logNormCounts(sce)
+
+## Filtering
+dec <- modelGeneVar(sce)
+hvg <- getTopHVGs(dec, prop=0.1)
+
+## Dimensionality reduction
+set.seed(1234)
+sce <- runPCA(sce, ncomponents=25, subset_row=hvg)
+sce <- runUMAP(sce, dimred = 'PCA', external_neighbors=TRUE)
+
+## Clustering
+g <- buildSNNGraph(sce, use.dimred = 'PCA')
+colLabels(sce) <- factor(igraph::cluster_louvain(g)$membership)
+```
+
+### Saving results on the runtime instance
+
+At this point, we've invested a certain amount of effort, mental and
+computational, into producing the updated `sce`. It might be valuable
+to save this object so that we can quickly read it in during our next
+session.
+
+The standard mechanism for saving an _R_ object might use `saveRDS()`
+to write the image to disk, and `readRDS()` to load it back in:
+
+```{r}
+## save the file in the home directory
+file_name <- file.path("~", format(Sys.Date(), "sce_%m-%d-%y.RDS"))
+saveRDS(sce, file_name)
+
+sce1 <- readRDS(file_name)
+sce1
+```
+
+### Backing up results to the workspace bucket
+
+A challenge with this approach is that the file system is associated
+with the runtime. When the runtime ends, intentionally (e.g., to
+switch to a different runtime) or accidentally (e.g., because of some
+technical problem in the AnVIL), the file is no longer available.
+
+To make 'persist' the file so that its lifespan extends to the life of
+the _workspace_, copy the file from it's current location to the
+google bucket associated with the workspace. Do this using
+`avfiles_backup()` (`res` contains the output of the cloud copy
+command, and would be useful if debugging a surprising outcome).
+
+```{r}
+res <- avfiles_backup(file_name)
+```
+
+The content of the google bucket can be viewed with
+
+```{r}
+print( avfiles_ls(recursive = TRUE) )
+```
+
+We see that the data set, and the notebooks, are stored in the
+bucket. The file can be restored to the runtime, perhaps in a
+different location, with
+
+```{r}
+tmp <- tempfile(); dir.create(tmp)
+print( dir(tmp) ) # nothing there...
+res <-avfiles_restore(basename(file_name), tmp)
+print( dir(tmp) ) # ...now there is!
+```
+
+This restoration works even if the runtime has been changed, e.g., to
+use RStudio instead of Jupyter notebooks.
+
+## Workspace DATA 'TABLES'
+
+Check out the DATA tab on the workspace home page. Note that there is
+a TABLES entry. A Workspace data TABLE provides metadata about
+genome-scale resources available to the workspace. Often, the data are
+subject to access restrictions, and access to the workspace implies
+access to the restricted data.
+
+We'll create references to public-access data available from the Human
+Cell Atlas.
+
+### Metadata discovery and export from the HCA
+
+Visit the [Human Cell Atlas Data Portal][1].
+
+Select on the project "[A single-cell reference map of transcriptional
+states for human blood and tissue T cell activation][2]" (second item
+on the default screen, as of this writing). Note that the data set is
+very well documented. We worked with the 'Expression Matrices' (left
+panel) in a previous section of the workshop, and will work with
+'Analysis Protocol (optimus_v1.3.5)' (right sidebar) in a subsequent
+section.
+
+Return to the [data portal][1]. Use the check box to select the
+project, and click 'Export Selected Data' toward the top right.
+
+```{r echo = FALSE, fig.align="center", out.width="50%"}
+knitr::include_graphics('images/HCA-Select-Export.png')
+```
+
+On the next screen, choose 'Export to Terra', select 'BAM' files, and
+'Request Export'
+
+[1]: https://data.humancellatlas.org/explore/projects
+[2]: https://data.humancellatlas.org/explore/projects/4a95101c-9ffc-4f30-a809-f04518a23803
+
+I was transferred to Terra, asked to log in, then to create or use a
+workspace. I chose an existing workspace (this one!). The HCA data
+appeared under the DATA tab as a TABLE labeled "participants".
+
+The AnVIL package allow us to query the workspace data tables.
+
+### Accessing TABLES
+
+Use `avtables()` to discover the tables available.
+
+```{r}
+avtables() %>%
+    print()
+```
+
+Use `avtable()` to retrieve a particular table.
+
+```{r}
+participant <- avtable("participant")
+print(participant)
+```
+
+### What do we learn about the samples in this experiment?
+
+Metadata about the participants in the study can be found by selecting
+the columns that do not start with an underscore
+
+```{r}
+participant %>%
+    select( !starts_with("_") ) %>%
+    print()
+```
+
+As in a previous exercise, we can select the invariant columns to learn
+about experiment-wide participant descriptions...
+
+```{r}
+participant %>%
+    select( !starts_with("_") ) %>%
+    select_if( ~ length(unique(.)) == 1L) %>%
+    distinct() %>%
+    tidyr::pivot_longer(everything()) %>%
+    print()
+```
+
+The varying columns...
+
+```{r}
+participant %>%
+    select( !starts_with("_") ) %>%
+    select_if( ~ length(unique(.)) != 1L) %>%
+    print()
+```
+
+Details of, e.g., donor attributes are easily discovered
+
+```{r}
+donor <-
+    participant %>%
+    select( starts_with("donor_organism__") ) %>%
+    ## for visual display, drop the 'donor_organism__' prefix
+    rename_all( ~ sub("donor_organism__", "", .) )
+
+donor %>%
+    dplyr::count(
+               provenance__document_id,
+               sex,
+               organism_age
+           ) %>%
+    print()
+```
+
+The 'big data' (e.g., BAM files) are co-located in the google cloud
+(note the `replica=gcp`, i.e., Google cloud platform, at the end of
+the URL), so accessible for computation and without download charge.
+
+```{r}
+participant %>%
+    select( contains("bam__file_url") )
+```
+
+## Information about the packages used in this session
+
+The _R_ command `sessionInfo()` captures information about the
+versions of software used in the current session. This can be valuable
+for performing reproducible analysis.
+
+```{r}
+sessionInfo()
+```

@@ -1,19 +1,47 @@
 # The AnVIL -- workspaces, runtimes, buckets, workflows
 
-## Workspaces
+## Navigation icons
 
-### Create a new workspace
+- Hamburger
+- Teardrop
+- Plus
 
-### Share your workspace with others
+## Use an existing workspace
 
-### Use an existing workspace
+Search for the 'Bioconductor' featured workspace.
 
-## Runtimes
+Clone 
 
-### Use an _RStudio_ runtime
+- Name the workspace, e.g,. `Bioconductor-july-18-2020`
+- Associate the cloned workspace with a billing account.
 
-### Use a Jupyter notebook with _R_ kernel
+Additional workspace actions
 
-## Buckets
+- Create a new workspace: the `+` icon at the top left of the
+  Workspaces screen.
+
+- Share your workspace with others: individuals or groups; effective
+  access management.
+
+## Jupyter notebook runtimes
+
+- R / Bioconductor runtime envirnoment
+
+  - 'What's installed on this environment'
+  - Compute power
+
+- Runtime can be used across different workspaces
+
+## Google bucket
+
+- Associated with the work space, managed by Terra. Persistent storage.
+
+## Notebooks
+
+Existing notebooks
+
+- Preview: read-only
+- Edit: edit, evaluate, and save changes
+- Playground: edit, evalaute, but do not save changes
 
 ## Workflows

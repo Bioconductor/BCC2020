@@ -1,0 +1,256 @@
+# Working with large data
+
+In this section we learn about
+
+- Importing data from the Human Cell Atlas
+- Working with large on-disk data
+- Exploring tabular data using 'tidyverse' tools
+
+Packages used
+
+- [BiocFileCache][3] -- local cache of internet and other files.
+- [LoomExperiment][4] -- 'loom' single-cell experiment representation
+- [DelayedArray][5] -- large on-disk matrix-like data representation
+- [dplyr][6] -- 'tidyverse' maniplation of data.frame-like data
+
+## Human cell atlas data discovery
+
+Visit the [Human Cell Atlas Data Portal][1].
+
+Select on the project "[A single-cell reference map of transcriptional
+states for human blood and tissue T cell activation][2]" (second item
+on the default screen, as of this writing). Note that the data set is
+very well documented. We will work with the 'Expression Matrices'
+(left panel) in this section of the workshop, and 'Analysis Protocol
+(optimus_v1.3.5)' (right sidebar) in the next section of the workshop.
+
+Select the `Expression Matrices` link.
+
+Copy the link to the 'loom' format matrix.
+
+[1]: https://data.humancellatlas.org/explore/projects
+[2]: https://data.humancellatlas.org/explore/projects/4a95101c-9ffc-4f30-a809-f04518a23803
+[3]: https://bioconductor.org/packages/BiocFileCache
+[4]: https://bioconductor.org/packages/LoomExperiment
+[5]: https://bioconductor.org/packages/DelayedArray
+[6]: https://cran.r-project.org/package=dplyr
+
+## _R / Bioconductor_ libraries
+
+Return to AnVIL and create a new notebook. Make sure that the runtime
+is available, and the notebook in 'edit' mode.
+
+Make sure that relevant software is loaded. The first time this code
+is executed, it will install [LoomExperiment][4] -- installation will
+take about 45 seconds.
+
+```{r}
+packages <- c("LoomExperiment", "SingleCellExperiment", "dplyr", "BiocFileCache")
+need <- packages[ !packages %in% rownames(installed.packages()) ]
+if (length(need))
+    BiocManager::install(need, update = FALSE)
+```
+
+Load the package we will use during the session
+
+```{r}
+suppressPackageStartupMessages({
+    library(BiocFileCache)
+    library(LoomExperiment)
+    library(SingleCellExperiment)
+    library(dplyr)
+})
+```
+
+## Data download and import
+
+Retrieve the HCA matrix. Do this using `iocFileCache`, a package
+which creates and maintains a local collection of files.
+
+```{r}
+url <- "https://data.humancellatlas.org/project-assets/project-matrices/4a95101c-9ffc-4f30-a809-f04518a23803.homo_sapiens.loom"
+loom_file <- BiocFileCache::bfcrpath(rnames = url)
+```
+
+Import the expression matrix into _R_ using the `LoomExperiment`
+package.
+
+```{r}
+loom <- import(loom_file)
+loom
+```
+
+## 'DelayedArray' representation of large on-disk data
+
+The experiment has 58347 rows (genes) and 267360 columns
+(cells). Re-name the assay to be `"counts"`
+
+```{r}
+assayNames(loom) <- "counts"
+loom
+```
+
+and take a look at the count data
+
+```{r}
+assay(loom, "counts")
+```
+
+This is an object of class `DelayedArray`, defined in the
+`DelayedArray` package. It behaves like a regular matrix, but the
+data is stored on-disk and only accessed when necessary. For
+instance, the following calculation provides the illusion that the
+full count matrix has been transformed, but actually only the cells
+visible in the output are calculated; the remaining data is on-disk.
+
+```{r}
+log1p(assay(loom, "counts"))
+```
+
+On the other hand, calculating library size (sum of reads in each
+column) requires all data to be accessed, and can be
+time-consuming. Here we calculate library sizes of the first 2000
+cells; we can expect processing time to scale linearly with number of
+cells
+
+```{r}
+system.time({
+    counts <- assay(loom, "counts")[, 1:2000]
+    lib_size <- colSums(counts)
+})
+```
+
+## Subseting and in-memory location for data exploration
+
+In many scenarios it is appropriate to perform exploratory analysis on
+a subset of data. Here we select the first 2000 cells (fast) and
+coerce the counts matrix of the subset to a sparse in-memory
+representation.
+
+```{r}
+loom_subset <- loom[, 1:2000]
+m <- assay(loom_subset, "counts")
+assay(loom_subset, "counts") <- as(m, "dgCMatrix")
+
+print(loom_subset)
+assay(loom_subset)[1:10, 1:5]
+```
+
+Exploratory analysis can then proceed quickly, e.g., calculating
+library size
+
+```{r}
+system.time({
+    counts <- assay(loom_subset, "counts")
+    lib_size <- colSums(counts)
+})
+range(lib_size)
+```
+
+## Exploration of column (cell) annotations
+
+Return to the full data set
+
+```{r}
+loom
+```
+
+We will use the 'tidyverse' approach to data management, with data
+represented as a `tibble` (a better-behaving `data.frame`) and a
+'pipe' (`%>%`) connecting the output of one command with the input of
+the next.
+
+The `colData()` accessor provides annotations about each cell of the
+`LoomExperiment`. Extract that information as a `tibble` so that we
+can explore the data in some detail.
+
+
+```{r}
+tbl <-
+    colData(loom) %>%
+    as_tibble()
+print(tbl)
+```
+
+## Invariant cell annotations
+
+We have extensive data (44 columns) on each cell. Many of the columns
+are constant across all cells. We use the function `select_if()` from
+the `dplyr` package to select columns that satisfy the expression
+`length(unique(.)) == 1`, where `.` refers to each column in the
+tibble.
+
+```{r}
+tbl %>%
+    ## select columns that have exactly one value
+    select_if(~ length(unique(.)) == 1) %>%
+    distinct() %>%
+    ## create a new tibble of column name / value pairs to summarize these
+    tidyr::pivot_longer(everything()) %>%
+    print()
+```
+
+## Donor provenance and organ labels
+
+The variable columns are also easily selected
+
+```{r}
+tbl_var <-
+    tbl %>%
+    select_if(~ length(unique(.)) != 1)
+
+print(tbl_var)
+```
+
+The `donor_organism.provenance.documented_id` column identifies
+indivuals contributing cells, so the cells per individual are
+
+```{r}
+tbl %>%
+    count(donor_organism.provenance.document_id) %>%
+    print()
+```
+
+The tissues represented in the experiment are summarized as
+
+```{r}
+tbl %>%
+    count(derived_organ_label) %>%
+    print()
+```
+
+The occurrence of organism and organ shows that two samples provided
+blood, and tow samples provided hematopoietic / lung / lymph node.
+
+```{r}
+tbl %>%
+    count(donor_organism.provenance.document_id, derived_organ_label) %>%
+    tidyr::pivot_wider(
+               names_from = "derived_organ_label",
+               values_from = "n"
+           ) %>%
+    print()
+```
+
+## Sub-setting data based on cell attributes
+
+With this exploration, it is then easy to create a subset of the data
+for further exploration, e.g., focusing on blood
+
+```{r}
+blood <-
+    loom %>%
+    subset(, derived_organ_label %in% "blood")
+
+print(blood)
+```
+
+## Information about the packages used in this session
+
+The _R_ command `sessionInfo()` captures information about the
+versions of software used in the current session. This can be valuable
+for performing reproducible analysis.
+
+```{r}
+sessionInfo()
+```

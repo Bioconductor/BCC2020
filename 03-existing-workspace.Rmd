@@ -1,0 +1,176 @@
+# Using an existing workspace
+
+In this section we learn about
+
+- Working with Jupyter notebooks
+- Installing and loading _R / Bioconductor_ packages
+- Using the [OSCA][] book to perform single-cell data
+
+Packages used
+
+- [scRNAseq][] -- Pre-defined single cell data sets
+- [scater][] -- Single-cell quality control and normalization
+- [scran][] -- Feature selection, dimensionality reduction,
+  clustering, and visualization
+  
+[scRNAseq]: https://bioconductor.org/packages/scRNAseq
+[scater]: https://bioconductor.org/packages/scater
+[scran]: https://bioconductor.org/packages/scran
+
+## Orchestrating single cell analysis
+
+We tackle the 'quick start' section of the book 'Orchestrating single
+cell analysis in R / Bioconductor' ([OSCA][]).
+
+[OSCA]: https://osca.bioconductor.org
+
+Visit [Quick start][], section 5.5, of OSCA.
+
+[Quick start]: https://osca.bioconductor.org/overview.html#quick-start
+
+## Install and load _R_ packages
+
+We will use several _R / Bioconductor_ packages and their
+dependencies. Make sure that the packages are installed in _R_ by
+running the following command. Package installation can take quite a
+long time; this is an area that is being actively worked on.
+
+```{r}
+## packages <- c("scRNAseq", "scater", "scran", "uwot")
+## need <- packages[!packages %in% rownames(installed.packages())]
+## BiocManager::install(need, update = FALSE)
+```
+
+Detailed information on _R / Bioconductor_ packages can be found on
+the package 'landing pages', e.g., for [scater][]. Be sure to check
+out the vignettes available on the landing page.
+
+Attach the packages we will use into the current _R_
+session. Attaching a package adds the functions and other objects
+defined in the package to the _R_ 'search' path, so that the commands
+can be evaluated.
+
+```{r}
+suppressPackageStartupMessages({
+    library(scRNAseq)
+    library(scater)
+    library(scran)
+})
+```
+
+## Example data as a SingleCellExperiment
+
+We'll work with a pre-defined `SingleCellExperiment` data set; see the
+OSCA book for steps to create your own `SingleCellExperiment`. Check
+out the help page `?MacoskoRetinaData` for more information on this
+data set.
+
+```{r}
+sce <- MacoskoRetinaData()
+sce
+```
+
+Printing `sce` shows `dim: 24658 49300`, indicating that there are
+24658 rows (genes) and 49300 columns (cells). `colData names(2):
+cell.id cluster` indicates that each column (cell) has additional
+information on cell id and cluster, perhaps from a previous analysis.
+
+The count data (number of reads from each cell mapping to each gene)
+can be extracted from `sce` using `assay()`; this is a a 24658 x 49300
+matrix, so we subset it to show only the first 10 rows and 3
+columns. Many of the counts in typical single cell experiments are
+zeros, so the matrix is represented using a sparse matrix
+representation defined in the base R Matrix package.
+
+```{r}
+assay(sce, "counts")[1:10, 1:3]
+```
+
+## The 'Quick start' workflow
+
+Use the functions `perCellQCMetrics()` and `quickPerCellQC()` to
+identify cells failing to satisfy quality control metrics. Details of
+these functions can be found in the [OSCA][] book, on the help
+pages `?perCellQCMetrics`, and in package vignettes.
+
+```{r qc, cache = TRUE}
+is.mito <- grepl("^MT-", rownames(sce))
+qcstats <- perCellQCMetrics(sce, subsets=list(Mito=is.mito))
+filtered <- quickPerCellQC(qcstats, percent_subsets="subsets_Mito_percent")
+sce <- sce[, !filtered$discard]
+```
+
+The number of cells has been reduced from 49300 to 45877.
+
+```{r}
+dim(sce)
+```
+
+Normalization transforms counts to accommodate differences in 'library
+size' (total number of reads assayed in each cell) and the
+distribution of the counts. There are several approaches to
+normalization; we adopt the approach implemented by the
+`logNormCounts()` function. This updates `sce` to include a second
+assay, called `"logcounts"`.
+
+```{r}
+sce <- logNormCounts(sce)
+assay(sce, "logcounts")[1:10, 1:3]
+```
+
+Feature selection identifies genes that are particularly informative
+about between-cell variation in gene expression. The functions
+`modelGeneVar()` and `getTopHVGs()` identify 9two14 particularly
+informative features.
+
+```{r}
+dec <- modelGeneVar(sce)
+hvg <- getTopHVGs(dec, prop=0.1)
+head(hvg)
+length(hvg)
+```
+
+Each column of the assay matrix can be though of as a vector defining
+the location of a cell in a high-dimensional space. Dimensionality
+reduction projects this high dimensional space onto lower dimensions
+to enhance visualization. The following commands perform 'PCA' and
+'UMAP' dimensionality reduction. The `sce` object is updated to record
+these reductions, so the calculation can be performed only once. It
+takes 2 or 3 minutes to evaluate the following cell.
+
+```{r pca-umap, cache = TRUE}
+set.seed(1234)
+system.time({
+    sce <- runPCA(sce, ncomponents=25, subset_row=hvg)
+    sce <- runUMAP(sce, dimred = 'PCA', external_neighbors=TRUE)
+})
+reducedDimNames(sce)
+```
+
+PCA and UMP can be used to visualize cells in two or three
+dimensions. The cells form visual clusters, and `cluster_louvain()` is
+a method to identify cells that are close to one another in the
+reduced space.
+
+```{r louvain, cache = TRUE}
+g <- buildSNNGraph(sce, use.dimred = 'PCA')
+colLabels(sce) <- factor(igraph::cluster_louvain(g)$membership)
+```
+
+As a final step in this quick start, cells can be visualized in
+reduced dimensional space, colored according to the identified
+clusters.
+
+```{r}
+plotUMAP(sce, colour_by="label")
+```
+
+## Information about the packages used in this session
+
+The _R_ command `sessionInfo()` captures information about the
+versions of software used in the current session. This can be valuable
+for performing reproducible analysis.
+
+```{r}
+sessionInfo()
+```
