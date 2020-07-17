@@ -1,18 +1,17 @@
 --- 
 title: "R / Bioconductor in the AnVIL Cloud"
-author: 
-- "Martin Morgan"
-- "Nitesh Turaga"
-- "Lori Shepherd"
+author:
+- Martin Morgan
+- Nitesh Turaga
+- Lori Shepherd
 date: "July 17, July 18 2020"
-site: bookdown::bookdown_site
+bibliography: book.bib
+description: |
+  This book contains material for a 2 1/2 hour course offered at the Bioinformatics Community Conference 2020.
 documentclass: book
-bibliography: [book.bib]
-biblio-style: apalike
 link-citations: yes
-description: >
-  This book contains material for a 2 1/2 hour course
-  offered at the Bioinformatics Community Conference 2020.
+site: bookdown::bookdown_site
+biblio-style: apalike
 ---
 
 # About {-}

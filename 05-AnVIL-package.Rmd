@@ -19,7 +19,7 @@ Packages used include
 
 We'll primarily use the `AnVIL` package, installed from github.
 
-```{r}
+```{r install_1}
 github_packages <- "Bioconductor/AnVIL"
 idx <- ! basename(github_packages) %in% rownames(installed.packages())
 need <- github_packages[ idx ]
@@ -29,7 +29,7 @@ BiocManager::install(need, update = FALSE)
 We'll motivate the use of `AnVIL` using a previous work flow, and use
 of the `dplyr` package. The required packages can be installed with
 
-```{r}
+```{r install_2}
 packages <- c("scRNAseq", "scater", "scran", "uwot", "dplyr")
 need <- packages[!packages %in% rownames(installed.packages())]
 BiocManager::install(need, update = FALSE)
@@ -37,13 +37,13 @@ BiocManager::install(need, update = FALSE)
 
 Start by loading the `AnVIL` package.
 
-```{r}
+```{r library}
 suppressPackageStartupMessages({
     library(AnVIL)
 })
 ```
 
-```{r, echo = FALSE}
+```{r IGNORE, echo = FALSE}
 ##
 ## IGNORE THE FOLLOWING COMMANDS, necessary when creating this
 ## document
@@ -61,7 +61,7 @@ The central components of the AnVIL workspace are available. Each
 workspace has a 'namespace' (billing account) and 'name' (workspace
 name).
 
-```{r, eval = FALSE}
+```{r avworkspace, eval = FALSE}
 avworkspace_namespace() # billing account
 avworkspace_name()      # workspace name
 ```
@@ -70,7 +70,7 @@ Each workspace has a google 'bucket' associated with it. The bucket is
 in existence for as long as the workspace, providing an area for
 persistent data storage across different kernels.
 
-```{r}
+```{r avbucket}
 avbucket()
 ```
 
@@ -80,7 +80,7 @@ avbucket()
 
 Here's an abbreviated version of an earlier work flow
 
-```{r}
+```{r workflow, cache = TRUE}
 ## Necessary packages
 suppressPackageStartupMessages({
     library(scRNAseq)
@@ -126,9 +126,10 @@ session.
 The standard mechanism for saving an _R_ object might use `saveRDS()`
 to write the image to disk, and `readRDS()` to load it back in:
 
-```{r}
-## save the file in the home directory
-file_name <- file.path("~", format(Sys.Date(), "sce_%m-%d-%y.RDS"))
+```{r saveRDS}
+## save the file in a temporary directory, for illustration purposes
+tmp_dir <- tempfile(); dir.create(tmp_dir)
+file_name <- file.path(tmp_dir, format(Sys.Date(), "sce_%m-%d-%y.RDS"))
 saveRDS(sce, file_name)
 
 sce1 <- readRDS(file_name)
@@ -148,13 +149,13 @@ google bucket associated with the workspace. Do this using
 `avfiles_backup()` (`res` contains the output of the cloud copy
 command, and would be useful if debugging a surprising outcome).
 
-```{r}
+```{r avfiles_backup}
 res <- avfiles_backup(file_name)
 ```
 
 The content of the google bucket can be viewed with
 
-```{r}
+```{r avfiles_ls}
 print( avfiles_ls(recursive = TRUE) )
 ```
 
@@ -162,7 +163,7 @@ We see that the data set, and the notebooks, are stored in the
 bucket. The file can be restored to the runtime, perhaps in a
 different location, with
 
-```{r}
+```{r avfiles_restore}
 tmp <- tempfile(); dir.create(tmp)
 print( dir(tmp) ) # nothing there...
 res <-avfiles_restore(basename(file_name), tmp)
@@ -198,10 +199,6 @@ section.
 Return to the [data portal][1]. Use the check box to select the
 project, and click 'Export Selected Data' toward the top right.
 
-```{r echo = FALSE, fig.align="center", out.width="50%"}
-knitr::include_graphics('images/HCA-Select-Export.png')
-```
-
 On the next screen, choose 'Export to Terra', select 'BAM' files, and
 'Request Export'
 
@@ -218,14 +215,14 @@ The AnVIL package allow us to query the workspace data tables.
 
 Use `avtables()` to discover the tables available.
 
-```{r}
+```{r avtables}
 avtables() %>%
     print()
 ```
 
 Use `avtable()` to retrieve a particular table.
 
-```{r}
+```{r avtable}
 participant <- avtable("participant")
 print(participant)
 ```
