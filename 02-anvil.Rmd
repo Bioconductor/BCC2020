@@ -1,47 +1,72 @@
 # The AnVIL -- workspaces, runtimes, buckets, workflows
 
+In this section we learn about
+
+- Cloning a 'WORKSPACES' for coordinating access to particular data
+  sets and analyses
+- Creating a Notebook runtimes for cloud-based computation
+- Understanding the relationship between workspaace, runtime, DATA,
+  and NOTEBOOKS.
+
 ## Navigation icons
 
-- Hamburger
-- Teardrop
-- Plus
+- HAMBURGER
+- TEARDROP
+- PLUS
 
 ## Use an existing workspace
 
 Search for the 'Bioconductor' featured workspace.
 
+- Choose the HAMBURGER menu, 'Your workspaces' item
+- Search (at the top of the screen) for 'Bioconductor-BCC2020'
+- This should appear under 'My Workspaces'
+
+    - Problems? Provide your email account to Lori or Nitesh in REMO chat
+
 Clone 
 
-- Name the workspace, e.g,. `Bioconductor-july-18-2020`
-- Associate the cloned workspace with a billing account.
+- Choose the TEARDROP associated with this workspace
+- Select 'Clone'
+- Name the workspace, e.g,. `Bioconductor-bcc2020-july-18-2020` or similar.
+- Associate the cloned workspace with the `bioconductor-rpci-bcc2020`
+  billing account
 
-Additional workspace actions
+## DASHBOARD
 
-- Create a new workspace: the `+` icon at the top left of the
-  Workspaces screen.
+Runtimes (top right)
 
-- Share your workspace with others: individuals or groups; effective
-  access management.
-
-## Jupyter notebook runtimes
-
-- R / Bioconductor runtime envirnoment
+- Select the 'R / Bioconductor...' runtime environment
 
   - 'What's installed on this environment'
   - Compute power
 
 - Runtime can be used across different workspaces
 
-## Google bucket
+Google bucket
 
 - Associated with the work space, managed by Terra. Persistent storage.
 
-## Notebooks
+## DATA
 
-Existing notebooks
+TABLES
+
+- Usually, metadata referencing cloud-based data sets
+- Ours: Human Cell Atlas BAM files for a particular study
+
+...
+
+OTHER DATA
+
+- Google bucket content
+- Persits even if new runtime selected
+
+## NOTEBOOKS
+
+Existing notebooks -- TEARDROP
 
 - Preview: read-only
 - Edit: edit, evaluate, and save changes
 - Playground: edit, evalaute, but do not save changes
 
-## Workflows
+## WORKFLOWS

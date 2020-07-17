@@ -231,35 +231,35 @@ most recent version installed from Github.</li>
 <div id="r-bioconductor-libraries" class="section level2">
 <h2><span class="header-section-number">5.1</span> <em>R / Bioconductor</em> libraries</h2>
 <p>We’ll primarily use the <code>AnVIL</code> package, installed from github.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">github_packages &lt;-<span class="st"> &quot;Bioconductor/AnVIL&quot;</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">idx &lt;-<span class="st"> </span><span class="op">!</span><span class="st"> </span><span class="kw">basename</span>(github_packages) <span class="op">%in%</span><span class="st"> </span><span class="kw">rownames</span>(<span class="kw">installed.packages</span>())</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">need &lt;-<span class="st"> </span>github_packages[ idx ]</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">BiocManager<span class="op">::</span><span class="kw">install</span>(need, <span class="dt">update =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" data-line-number="1">github_packages &lt;-<span class="st"> &quot;Bioconductor/AnVIL&quot;</span></a>
+<a class="sourceLine" id="cb71-2" data-line-number="2">idx &lt;-<span class="st"> </span><span class="op">!</span><span class="st"> </span><span class="kw">basename</span>(github_packages) <span class="op">%in%</span><span class="st"> </span><span class="kw">rownames</span>(<span class="kw">installed.packages</span>())</a>
+<a class="sourceLine" id="cb71-3" data-line-number="3">need &lt;-<span class="st"> </span>github_packages[ idx ]</a>
+<a class="sourceLine" id="cb71-4" data-line-number="4">BiocManager<span class="op">::</span><span class="kw">install</span>(need, <span class="dt">update =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>## Bioconductor version 3.11 (BiocManager 1.30.10), R 4.0.2 Patched (2020-06-24
 ##   r78747)</code></pre>
 <p>We’ll motivate the use of <code>AnVIL</code> using a previous work flow, and use
 of the <code>dplyr</code> package. The required packages can be installed with</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">packages &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;scRNAseq&quot;</span>, <span class="st">&quot;scater&quot;</span>, <span class="st">&quot;scran&quot;</span>, <span class="st">&quot;uwot&quot;</span>, <span class="st">&quot;dplyr&quot;</span>)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">need &lt;-<span class="st"> </span>packages[<span class="op">!</span>packages <span class="op">%in%</span><span class="st"> </span><span class="kw">rownames</span>(<span class="kw">installed.packages</span>())]</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">BiocManager<span class="op">::</span><span class="kw">install</span>(need, <span class="dt">update =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" data-line-number="1">packages &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;scRNAseq&quot;</span>, <span class="st">&quot;scater&quot;</span>, <span class="st">&quot;scran&quot;</span>, <span class="st">&quot;uwot&quot;</span>, <span class="st">&quot;dplyr&quot;</span>)</a>
+<a class="sourceLine" id="cb73-2" data-line-number="2">need &lt;-<span class="st"> </span>packages[<span class="op">!</span>packages <span class="op">%in%</span><span class="st"> </span><span class="kw">rownames</span>(<span class="kw">installed.packages</span>())]</a>
+<a class="sourceLine" id="cb73-3" data-line-number="3">BiocManager<span class="op">::</span><span class="kw">install</span>(need, <span class="dt">update =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
 <pre><code>## Bioconductor version 3.11 (BiocManager 1.30.10), R 4.0.2 Patched (2020-06-24
 ##   r78747)</code></pre>
 <p>Start by loading the <code>AnVIL</code> package.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">suppressPackageStartupMessages</span>({</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">    <span class="kw">library</span>(AnVIL)</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3">})</a></code></pre></div>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" data-line-number="1"><span class="kw">suppressPackageStartupMessages</span>({</a>
+<a class="sourceLine" id="cb75-2" data-line-number="2">    <span class="kw">library</span>(AnVIL)</a>
+<a class="sourceLine" id="cb75-3" data-line-number="3">})</a></code></pre></div>
 </div>
 <div id="the-anvil-workspace" class="section level2">
 <h2><span class="header-section-number">5.2</span> The <em>AnVIL</em> workspace</h2>
 <p>The central components of the AnVIL workspace are available. Each
 workspace has a ‘namespace’ (billing account) and ‘name’ (workspace
 name).</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">avworkspace_namespace</span>() <span class="co"># billing account</span></a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw">avworkspace_name</span>()      <span class="co"># workspace name</span></a></code></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" data-line-number="1"><span class="kw">avworkspace_namespace</span>() <span class="co"># billing account</span></a>
+<a class="sourceLine" id="cb76-2" data-line-number="2"><span class="kw">avworkspace_name</span>()      <span class="co"># workspace name</span></a></code></pre></div>
 <p>Each workspace has a google ‘bucket’ associated with it. The bucket is
 in existence for as long as the workspace, providing an area for
 persistent data storage across different kernels.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">avbucket</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb77-1" data-line-number="1"><span class="kw">avbucket</span>()</a></code></pre></div>
 <pre><code>## [1] &quot;gs://fc-66b30014-b9a7-4374-a24a-e9eba924b67d&quot;</code></pre>
 </div>
 <div id="saving-analysis-products" class="section level2">
@@ -267,39 +267,39 @@ persistent data storage across different kernels.</p>
 <div id="an-abbreviated-work-flow" class="section level3">
 <h3><span class="header-section-number">5.3.1</span> An abbreviated work flow</h3>
 <p>Here’s an abbreviated version of an earlier work flow</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="co">## Necessary packages</span></a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw">suppressPackageStartupMessages</span>({</a>
-<a class="sourceLine" id="cb9-3" data-line-number="3">    <span class="kw">library</span>(scRNAseq)</a>
-<a class="sourceLine" id="cb9-4" data-line-number="4">    <span class="kw">library</span>(scater)</a>
-<a class="sourceLine" id="cb9-5" data-line-number="5">    <span class="kw">library</span>(scran)</a>
-<a class="sourceLine" id="cb9-6" data-line-number="6">})</a>
-<a class="sourceLine" id="cb9-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb9-8" data-line-number="8"><span class="co">## Pre-configured data</span></a>
-<a class="sourceLine" id="cb9-9" data-line-number="9"><span class="kw">suppressMessages</span>({</a>
-<a class="sourceLine" id="cb9-10" data-line-number="10">    sce &lt;-<span class="st"> </span><span class="kw">MacoskoRetinaData</span>()</a>
-<a class="sourceLine" id="cb9-11" data-line-number="11">})</a>
-<a class="sourceLine" id="cb9-12" data-line-number="12"></a>
-<a class="sourceLine" id="cb9-13" data-line-number="13"><span class="co">## QC</span></a>
-<a class="sourceLine" id="cb9-14" data-line-number="14">is.mito &lt;-<span class="st"> </span><span class="kw">grepl</span>(<span class="st">&quot;^MT-&quot;</span>, <span class="kw">rownames</span>(sce))</a>
-<a class="sourceLine" id="cb9-15" data-line-number="15">qcstats &lt;-<span class="st"> </span><span class="kw">perCellQCMetrics</span>(sce, <span class="dt">subsets=</span><span class="kw">list</span>(<span class="dt">Mito=</span>is.mito))</a>
-<a class="sourceLine" id="cb9-16" data-line-number="16">filtered &lt;-<span class="st"> </span><span class="kw">quickPerCellQC</span>(qcstats, <span class="dt">percent_subsets=</span><span class="st">&quot;subsets_Mito_percent&quot;</span>)</a>
-<a class="sourceLine" id="cb9-17" data-line-number="17">sce &lt;-<span class="st"> </span>sce[, <span class="op">!</span>filtered<span class="op">$</span>discard]</a>
-<a class="sourceLine" id="cb9-18" data-line-number="18"></a>
-<a class="sourceLine" id="cb9-19" data-line-number="19"><span class="co">## Normalization</span></a>
-<a class="sourceLine" id="cb9-20" data-line-number="20">sce &lt;-<span class="st"> </span><span class="kw">logNormCounts</span>(sce)</a>
-<a class="sourceLine" id="cb9-21" data-line-number="21"></a>
-<a class="sourceLine" id="cb9-22" data-line-number="22"><span class="co">## Filtering</span></a>
-<a class="sourceLine" id="cb9-23" data-line-number="23">dec &lt;-<span class="st"> </span><span class="kw">modelGeneVar</span>(sce)</a>
-<a class="sourceLine" id="cb9-24" data-line-number="24">hvg &lt;-<span class="st"> </span><span class="kw">getTopHVGs</span>(dec, <span class="dt">prop=</span><span class="fl">0.1</span>)</a>
-<a class="sourceLine" id="cb9-25" data-line-number="25"></a>
-<a class="sourceLine" id="cb9-26" data-line-number="26"><span class="co">## Dimensionality reduction</span></a>
-<a class="sourceLine" id="cb9-27" data-line-number="27"><span class="kw">set.seed</span>(<span class="dv">1234</span>)</a>
-<a class="sourceLine" id="cb9-28" data-line-number="28">sce &lt;-<span class="st"> </span><span class="kw">runPCA</span>(sce, <span class="dt">ncomponents=</span><span class="dv">25</span>, <span class="dt">subset_row=</span>hvg)</a>
-<a class="sourceLine" id="cb9-29" data-line-number="29">sce &lt;-<span class="st"> </span><span class="kw">runUMAP</span>(sce, <span class="dt">dimred =</span> <span class="st">&#39;PCA&#39;</span>, <span class="dt">external_neighbors=</span><span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb9-30" data-line-number="30"></a>
-<a class="sourceLine" id="cb9-31" data-line-number="31"><span class="co">## Clustering</span></a>
-<a class="sourceLine" id="cb9-32" data-line-number="32">g &lt;-<span class="st"> </span><span class="kw">buildSNNGraph</span>(sce, <span class="dt">use.dimred =</span> <span class="st">&#39;PCA&#39;</span>)</a>
-<a class="sourceLine" id="cb9-33" data-line-number="33"><span class="kw">colLabels</span>(sce) &lt;-<span class="st"> </span><span class="kw">factor</span>(igraph<span class="op">::</span><span class="kw">cluster_louvain</span>(g)<span class="op">$</span>membership)</a></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb79-1" data-line-number="1"><span class="co">## Necessary packages</span></a>
+<a class="sourceLine" id="cb79-2" data-line-number="2"><span class="kw">suppressPackageStartupMessages</span>({</a>
+<a class="sourceLine" id="cb79-3" data-line-number="3">    <span class="kw">library</span>(scRNAseq)</a>
+<a class="sourceLine" id="cb79-4" data-line-number="4">    <span class="kw">library</span>(scater)</a>
+<a class="sourceLine" id="cb79-5" data-line-number="5">    <span class="kw">library</span>(scran)</a>
+<a class="sourceLine" id="cb79-6" data-line-number="6">})</a>
+<a class="sourceLine" id="cb79-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb79-8" data-line-number="8"><span class="co">## Pre-configured data</span></a>
+<a class="sourceLine" id="cb79-9" data-line-number="9"><span class="kw">suppressMessages</span>({</a>
+<a class="sourceLine" id="cb79-10" data-line-number="10">    sce &lt;-<span class="st"> </span><span class="kw">MacoskoRetinaData</span>()</a>
+<a class="sourceLine" id="cb79-11" data-line-number="11">})</a>
+<a class="sourceLine" id="cb79-12" data-line-number="12"></a>
+<a class="sourceLine" id="cb79-13" data-line-number="13"><span class="co">## QC</span></a>
+<a class="sourceLine" id="cb79-14" data-line-number="14">is.mito &lt;-<span class="st"> </span><span class="kw">grepl</span>(<span class="st">&quot;^MT-&quot;</span>, <span class="kw">rownames</span>(sce))</a>
+<a class="sourceLine" id="cb79-15" data-line-number="15">qcstats &lt;-<span class="st"> </span><span class="kw">perCellQCMetrics</span>(sce, <span class="dt">subsets=</span><span class="kw">list</span>(<span class="dt">Mito=</span>is.mito))</a>
+<a class="sourceLine" id="cb79-16" data-line-number="16">filtered &lt;-<span class="st"> </span><span class="kw">quickPerCellQC</span>(qcstats, <span class="dt">percent_subsets=</span><span class="st">&quot;subsets_Mito_percent&quot;</span>)</a>
+<a class="sourceLine" id="cb79-17" data-line-number="17">sce &lt;-<span class="st"> </span>sce[, <span class="op">!</span>filtered<span class="op">$</span>discard]</a>
+<a class="sourceLine" id="cb79-18" data-line-number="18"></a>
+<a class="sourceLine" id="cb79-19" data-line-number="19"><span class="co">## Normalization</span></a>
+<a class="sourceLine" id="cb79-20" data-line-number="20">sce &lt;-<span class="st"> </span><span class="kw">logNormCounts</span>(sce)</a>
+<a class="sourceLine" id="cb79-21" data-line-number="21"></a>
+<a class="sourceLine" id="cb79-22" data-line-number="22"><span class="co">## Filtering</span></a>
+<a class="sourceLine" id="cb79-23" data-line-number="23">dec &lt;-<span class="st"> </span><span class="kw">modelGeneVar</span>(sce)</a>
+<a class="sourceLine" id="cb79-24" data-line-number="24">hvg &lt;-<span class="st"> </span><span class="kw">getTopHVGs</span>(dec, <span class="dt">prop=</span><span class="fl">0.1</span>)</a>
+<a class="sourceLine" id="cb79-25" data-line-number="25"></a>
+<a class="sourceLine" id="cb79-26" data-line-number="26"><span class="co">## Dimensionality reduction</span></a>
+<a class="sourceLine" id="cb79-27" data-line-number="27"><span class="kw">set.seed</span>(<span class="dv">1234</span>)</a>
+<a class="sourceLine" id="cb79-28" data-line-number="28">sce &lt;-<span class="st"> </span><span class="kw">runPCA</span>(sce, <span class="dt">ncomponents=</span><span class="dv">25</span>, <span class="dt">subset_row=</span>hvg)</a>
+<a class="sourceLine" id="cb79-29" data-line-number="29">sce &lt;-<span class="st"> </span><span class="kw">runUMAP</span>(sce, <span class="dt">dimred =</span> <span class="st">&#39;PCA&#39;</span>, <span class="dt">external_neighbors=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb79-30" data-line-number="30"></a>
+<a class="sourceLine" id="cb79-31" data-line-number="31"><span class="co">## Clustering</span></a>
+<a class="sourceLine" id="cb79-32" data-line-number="32">g &lt;-<span class="st"> </span><span class="kw">buildSNNGraph</span>(sce, <span class="dt">use.dimred =</span> <span class="st">&#39;PCA&#39;</span>)</a>
+<a class="sourceLine" id="cb79-33" data-line-number="33"><span class="kw">colLabels</span>(sce) &lt;-<span class="st"> </span><span class="kw">factor</span>(igraph<span class="op">::</span><span class="kw">cluster_louvain</span>(g)<span class="op">$</span>membership)</a></code></pre></div>
 </div>
 <div id="saving-results-on-the-runtime-instance" class="section level3">
 <h3><span class="header-section-number">5.3.2</span> Saving results on the runtime instance</h3>
@@ -309,13 +309,13 @@ to save this object so that we can quickly read it in during our next
 session.</p>
 <p>The standard mechanism for saving an <em>R</em> object might use <code>saveRDS()</code>
 to write the image to disk, and <code>readRDS()</code> to load it back in:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1"><span class="co">## save the file in a temporary directory, for illustration purposes</span></a>
-<a class="sourceLine" id="cb10-2" data-line-number="2">tmp_dir &lt;-<span class="st"> </span><span class="kw">tempfile</span>(); <span class="kw">dir.create</span>(tmp_dir)</a>
-<a class="sourceLine" id="cb10-3" data-line-number="3">file_name &lt;-<span class="st"> </span><span class="kw">file.path</span>(tmp_dir, <span class="kw">format</span>(<span class="kw">Sys.Date</span>(), <span class="st">&quot;sce_%m-%d-%y.RDS&quot;</span>))</a>
-<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="kw">saveRDS</span>(sce, file_name)</a>
-<a class="sourceLine" id="cb10-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb10-6" data-line-number="6">sce1 &lt;-<span class="st"> </span><span class="kw">readRDS</span>(file_name)</a>
-<a class="sourceLine" id="cb10-7" data-line-number="7">sce1</a></code></pre></div>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb80-1" data-line-number="1"><span class="co">## save the file in a temporary directory, for illustration purposes</span></a>
+<a class="sourceLine" id="cb80-2" data-line-number="2">tmp_dir &lt;-<span class="st"> </span><span class="kw">tempfile</span>(); <span class="kw">dir.create</span>(tmp_dir)</a>
+<a class="sourceLine" id="cb80-3" data-line-number="3">file_name &lt;-<span class="st"> </span><span class="kw">file.path</span>(tmp_dir, <span class="kw">format</span>(<span class="kw">Sys.Date</span>(), <span class="st">&quot;sce_%m-%d-%y.RDS&quot;</span>))</a>
+<a class="sourceLine" id="cb80-4" data-line-number="4"><span class="kw">saveRDS</span>(sce, file_name)</a>
+<a class="sourceLine" id="cb80-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb80-6" data-line-number="6">sce1 &lt;-<span class="st"> </span><span class="kw">readRDS</span>(file_name)</a>
+<a class="sourceLine" id="cb80-7" data-line-number="7">sce1</a></code></pre></div>
 <pre><code>## class: SingleCellExperiment 
 ## dim: 24658 45877 
 ## metadata(0):
@@ -339,22 +339,23 @@ the <em>workspace</em>, copy the file from it’s current location to the
 google bucket associated with the workspace. Do this using
 <code>avfiles_backup()</code> (<code>res</code> contains the output of the cloud copy
 command, and would be useful if debugging a surprising outcome).</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">res &lt;-<span class="st"> </span><span class="kw">avfiles_backup</span>(file_name)</a></code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" data-line-number="1">res &lt;-<span class="st"> </span><span class="kw">avfiles_backup</span>(file_name)</a></code></pre></div>
 <p>The content of the google bucket can be viewed with</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">print</span>( <span class="kw">avfiles_ls</span>(<span class="dt">recursive =</span> <span class="ot">TRUE</span>) )</a></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" data-line-number="1"><span class="kw">print</span>( <span class="kw">avfiles_ls</span>(<span class="dt">recursive =</span> <span class="ot">TRUE</span>) )</a></code></pre></div>
 <pre><code>## [1] &quot;sce_07-16-20.RDS&quot;                     
-## [2] &quot;notebooks/03-existing-workspace.ipynb&quot;
-## [3] &quot;notebooks/04-hca-cloud-R.ipynb&quot;       
-## [4] &quot;notebooks/05-AnVIL-package.ipynb&quot;</code></pre>
+## [2] &quot;sce_07-17-20.RDS&quot;                     
+## [3] &quot;notebooks/03-existing-workspace.ipynb&quot;
+## [4] &quot;notebooks/04-hca-cloud-R.ipynb&quot;       
+## [5] &quot;notebooks/05-AnVIL-package.ipynb&quot;</code></pre>
 <p>We see that the data set, and the notebooks, are stored in the
 bucket. The file can be restored to the runtime, perhaps in a
 different location, with</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">tmp &lt;-<span class="st"> </span><span class="kw">tempfile</span>(); <span class="kw">dir.create</span>(tmp)</a>
-<a class="sourceLine" id="cb15-2" data-line-number="2"><span class="kw">print</span>( <span class="kw">dir</span>(tmp) ) <span class="co"># nothing there...</span></a></code></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" data-line-number="1">tmp &lt;-<span class="st"> </span><span class="kw">tempfile</span>(); <span class="kw">dir.create</span>(tmp)</a>
+<a class="sourceLine" id="cb85-2" data-line-number="2"><span class="kw">print</span>( <span class="kw">dir</span>(tmp) ) <span class="co"># nothing there...</span></a></code></pre></div>
 <pre><code>## character(0)</code></pre>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">res &lt;-<span class="kw">avfiles_restore</span>(<span class="kw">basename</span>(file_name), tmp)</a>
-<a class="sourceLine" id="cb17-2" data-line-number="2"><span class="kw">print</span>( <span class="kw">dir</span>(tmp) ) <span class="co"># ...now there is!</span></a></code></pre></div>
-<pre><code>## [1] &quot;sce_07-16-20.RDS&quot;</code></pre>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" data-line-number="1">res &lt;-<span class="kw">avfiles_restore</span>(<span class="kw">basename</span>(file_name), tmp)</a>
+<a class="sourceLine" id="cb87-2" data-line-number="2"><span class="kw">print</span>( <span class="kw">dir</span>(tmp) ) <span class="co"># ...now there is!</span></a></code></pre></div>
+<pre><code>## [1] &quot;sce_07-17-20.RDS&quot;</code></pre>
 <p>This restoration works even if the runtime has been changed, e.g., to
 use RStudio instead of Jupyter notebooks.</p>
 </div>
@@ -390,15 +391,15 @@ appeared under the DATA tab as a TABLE labeled “participants”.</p>
 <div id="accessing-tables" class="section level3">
 <h3><span class="header-section-number">5.4.2</span> Accessing TABLES</h3>
 <p>Use <code>avtables()</code> to discover the tables available.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw">avtables</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb19-2" data-line-number="2"><span class="st">    </span><span class="kw">print</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" data-line-number="1"><span class="kw">avtables</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb89-2" data-line-number="2"><span class="st">    </span><span class="kw">print</span>()</a></code></pre></div>
 <pre><code>## # A tibble: 1 x 3
 ##   table      count colnames                                                     
 ##   &lt;chr&gt;      &lt;int&gt; &lt;chr&gt;                                                        
 ## 1 participa…    16 participant_id, bundle_uuid, bundle_version, cell_suspension…</code></pre>
 <p>Use <code>avtable()</code> to retrieve a particular table.</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1">participant &lt;-<span class="st"> </span><span class="kw">avtable</span>(<span class="st">&quot;participant&quot;</span>)</a>
-<a class="sourceLine" id="cb21-2" data-line-number="2"><span class="kw">print</span>(participant)</a></code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" data-line-number="1">participant &lt;-<span class="st"> </span><span class="kw">avtable</span>(<span class="st">&quot;participant&quot;</span>)</a>
+<a class="sourceLine" id="cb91-2" data-line-number="2"><span class="kw">print</span>(participant)</a></code></pre></div>
 <pre><code>## # A tibble: 16 x 121
 ##    name  `__unknown_3__f… `__csv__file_na… `__unknown_4__f… donor_organism_…
 ##    &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;           
@@ -482,9 +483,9 @@ appeared under the DATA tab as a TABLE labeled “participants”.</p>
 <h3><span class="header-section-number">5.4.3</span> What do we learn about the samples in this experiment?</h3>
 <p>Metadata about the participants in the study can be found by selecting
 the columns that do not start with an underscore</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" data-line-number="1">participant <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb23-2" data-line-number="2"><span class="st">    </span><span class="kw">select</span>( <span class="op">!</span><span class="kw">starts_with</span>(<span class="st">&quot;_&quot;</span>) ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb23-3" data-line-number="3"><span class="st">    </span><span class="kw">print</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" data-line-number="1">participant <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb93-2" data-line-number="2"><span class="st">    </span><span class="kw">select</span>( <span class="op">!</span><span class="kw">starts_with</span>(<span class="st">&quot;_&quot;</span>) ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb93-3" data-line-number="3"><span class="st">    </span><span class="kw">print</span>()</a></code></pre></div>
 <pre><code>## # A tibble: 16 x 28
 ##    name  donor_organism_… cell_suspension… cell_suspension… sequencing_proc…
 ##    &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;           
@@ -526,12 +527,12 @@ the columns that do not start with an underscore</p>
 ## #   specimen_from_organism__organ &lt;chr&gt;</code></pre>
 <p>As in a previous exercise, we can select the invariant columns to learn
 about experiment-wide participant descriptions…</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" data-line-number="1">participant <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb25-2" data-line-number="2"><span class="st">    </span><span class="kw">select</span>( <span class="op">!</span><span class="kw">starts_with</span>(<span class="st">&quot;_&quot;</span>) ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb25-3" data-line-number="3"><span class="st">    </span><span class="kw">select_if</span>( <span class="op">~</span><span class="st"> </span><span class="kw">length</span>(<span class="kw">unique</span>(.)) <span class="op">==</span><span class="st"> </span>1L) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb25-4" data-line-number="4"><span class="st">    </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb25-5" data-line-number="5"><span class="st">    </span>tidyr<span class="op">::</span><span class="kw">pivot_longer</span>(<span class="kw">everything</span>()) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb25-6" data-line-number="6"><span class="st">    </span><span class="kw">print</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" data-line-number="1">participant <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb95-2" data-line-number="2"><span class="st">    </span><span class="kw">select</span>( <span class="op">!</span><span class="kw">starts_with</span>(<span class="st">&quot;_&quot;</span>) ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb95-3" data-line-number="3"><span class="st">    </span><span class="kw">select_if</span>( <span class="op">~</span><span class="st"> </span><span class="kw">length</span>(<span class="kw">unique</span>(.)) <span class="op">==</span><span class="st"> </span>1L) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb95-4" data-line-number="4"><span class="st">    </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb95-5" data-line-number="5"><span class="st">    </span>tidyr<span class="op">::</span><span class="kw">pivot_longer</span>(<span class="kw">everything</span>()) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb95-6" data-line-number="6"><span class="st">    </span><span class="kw">print</span>()</a></code></pre></div>
 <pre><code>## # A tibble: 14 x 2
 ##    name                                value                                    
 ##    &lt;chr&gt;                               &lt;chr&gt;                                    
@@ -550,10 +551,10 @@ about experiment-wide participant descriptions…</p>
 ## 13 donor_organism__organism_age_unit   year                                     
 ## 14 project__contributors__institution  Columbia University Irving Medical Cente…</code></pre>
 <p>The varying columns…</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1">participant <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb27-2" data-line-number="2"><span class="st">    </span><span class="kw">select</span>( <span class="op">!</span><span class="kw">starts_with</span>(<span class="st">&quot;_&quot;</span>) ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb27-3" data-line-number="3"><span class="st">    </span><span class="kw">select_if</span>( <span class="op">~</span><span class="st"> </span><span class="kw">length</span>(<span class="kw">unique</span>(.)) <span class="op">!=</span><span class="st"> </span>1L) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb27-4" data-line-number="4"><span class="st">    </span><span class="kw">print</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" data-line-number="1">participant <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb97-2" data-line-number="2"><span class="st">    </span><span class="kw">select</span>( <span class="op">!</span><span class="kw">starts_with</span>(<span class="st">&quot;_&quot;</span>) ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb97-3" data-line-number="3"><span class="st">    </span><span class="kw">select_if</span>( <span class="op">~</span><span class="st"> </span><span class="kw">length</span>(<span class="kw">unique</span>(.)) <span class="op">!=</span><span class="st"> </span>1L) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb97-4" data-line-number="4"><span class="st">    </span><span class="kw">print</span>()</a></code></pre></div>
 <pre><code>## # A tibble: 16 x 14
 ##    name  donor_organism_… sequencing_proc… specimen_from_o… sample__provena…
 ##    &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;           
@@ -581,19 +582,19 @@ about experiment-wide participant descriptions…</p>
 ## #   specimen_from_organism__organ_part &lt;chr&gt;,
 ## #   specimen_from_organism__organ &lt;chr&gt;</code></pre>
 <p>Details of, e.g., donor attributes are easily discovered</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" data-line-number="1">donor &lt;-</a>
-<a class="sourceLine" id="cb29-2" data-line-number="2"><span class="st">    </span>participant <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb29-3" data-line-number="3"><span class="st">    </span><span class="kw">select</span>( <span class="kw">starts_with</span>(<span class="st">&quot;donor_organism__&quot;</span>) ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb29-4" data-line-number="4"><span class="st">    </span><span class="co">## for visual display, drop the &#39;donor_organism__&#39; prefix</span></a>
-<a class="sourceLine" id="cb29-5" data-line-number="5"><span class="st">    </span><span class="kw">rename_all</span>( <span class="op">~</span><span class="st"> </span><span class="kw">sub</span>(<span class="st">&quot;donor_organism__&quot;</span>, <span class="st">&quot;&quot;</span>, .) )</a>
-<a class="sourceLine" id="cb29-6" data-line-number="6"></a>
-<a class="sourceLine" id="cb29-7" data-line-number="7">donor <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb29-8" data-line-number="8"><span class="st">    </span>dplyr<span class="op">::</span><span class="kw">count</span>(</a>
-<a class="sourceLine" id="cb29-9" data-line-number="9">               provenance__document_id,</a>
-<a class="sourceLine" id="cb29-10" data-line-number="10">               sex,</a>
-<a class="sourceLine" id="cb29-11" data-line-number="11">               organism_age</a>
-<a class="sourceLine" id="cb29-12" data-line-number="12">           ) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb29-13" data-line-number="13"><span class="st">    </span><span class="kw">print</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" data-line-number="1">donor &lt;-</a>
+<a class="sourceLine" id="cb99-2" data-line-number="2"><span class="st">    </span>participant <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb99-3" data-line-number="3"><span class="st">    </span><span class="kw">select</span>( <span class="kw">starts_with</span>(<span class="st">&quot;donor_organism__&quot;</span>) ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb99-4" data-line-number="4"><span class="st">    </span><span class="co">## for visual display, drop the &#39;donor_organism__&#39; prefix</span></a>
+<a class="sourceLine" id="cb99-5" data-line-number="5"><span class="st">    </span><span class="kw">rename_all</span>( <span class="op">~</span><span class="st"> </span><span class="kw">sub</span>(<span class="st">&quot;donor_organism__&quot;</span>, <span class="st">&quot;&quot;</span>, .) )</a>
+<a class="sourceLine" id="cb99-6" data-line-number="6"></a>
+<a class="sourceLine" id="cb99-7" data-line-number="7">donor <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb99-8" data-line-number="8"><span class="st">    </span>dplyr<span class="op">::</span><span class="kw">count</span>(</a>
+<a class="sourceLine" id="cb99-9" data-line-number="9">               provenance__document_id,</a>
+<a class="sourceLine" id="cb99-10" data-line-number="10">               sex,</a>
+<a class="sourceLine" id="cb99-11" data-line-number="11">               organism_age</a>
+<a class="sourceLine" id="cb99-12" data-line-number="12">           ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb99-13" data-line-number="13"><span class="st">    </span><span class="kw">print</span>()</a></code></pre></div>
 <pre><code>## # A tibble: 4 x 4
 ##   provenance__document_id              sex   organism_age     n
 ##   &lt;chr&gt;                                &lt;chr&gt; &lt;chr&gt;        &lt;int&gt;
@@ -604,8 +605,8 @@ about experiment-wide participant descriptions…</p>
 <p>The ‘big data’ (e.g., BAM files) are co-located in the google cloud
 (note the <code>replica=gcp</code>, i.e., Google cloud platform, at the end of
 the URL), so accessible for computation and without download charge.</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1">participant <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb31-2" data-line-number="2"><span class="st">    </span><span class="kw">select</span>( <span class="kw">contains</span>(<span class="st">&quot;bam__file_url&quot;</span>) )</a></code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb101-1" data-line-number="1">participant <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb101-2" data-line-number="2"><span class="st">    </span><span class="kw">select</span>( <span class="kw">contains</span>(<span class="st">&quot;bam__file_url&quot;</span>) )</a></code></pre></div>
 <pre><code>## # A tibble: 16 x 1
 ##    `__bam__file_url`                                                            
 ##    &lt;chr&gt;                                                                        
@@ -632,7 +633,7 @@ the URL), so accessible for computation and without download charge.</p>
 <p>The <em>R</em> command <code>sessionInfo()</code> captures information about the
 versions of software used in the current session. This can be valuable
 for performing reproducible analysis.</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb103-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
 <pre><code>## R version 4.0.2 Patched (2020-06-24 r78747)
 ## Platform: x86_64-apple-darwin17.7.0 (64-bit)
 ## Running under: macOS High Sierra 10.13.6
@@ -645,60 +646,60 @@ for performing reproducible analysis.</p>
 ## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
 ## 
 ## attached base packages:
-## [1] stats4    parallel  stats     graphics  grDevices utils     datasets 
+## [1] parallel  stats4    stats     graphics  grDevices utils     datasets 
 ## [8] methods   base     
 ## 
 ## other attached packages:
-##  [1] LoomExperiment_1.6.0        rtracklayer_1.48.0         
-##  [3] rhdf5_2.32.2                BiocFileCache_1.12.0       
-##  [5] dbplyr_1.4.4                scran_1.16.0               
-##  [7] scater_1.16.2               ggplot2_3.3.2              
-##  [9] scRNAseq_2.2.0              SingleCellExperiment_1.10.1
-## [11] SummarizedExperiment_1.18.2 DelayedArray_0.14.1        
-## [13] matrixStats_0.56.0          Biobase_2.48.0             
-## [15] GenomicRanges_1.40.0        GenomeInfoDb_1.24.2        
-## [17] IRanges_2.22.2              S4Vectors_0.26.1           
-## [19] BiocGenerics_0.34.0         AnVIL_1.1.14               
-## [21] dplyr_1.0.0                
+##  [1] AnVIL_1.1.14                dplyr_1.0.0                
+##  [3] LoomExperiment_1.6.0        rtracklayer_1.48.0         
+##  [5] rhdf5_2.32.2                BiocFileCache_1.12.0       
+##  [7] dbplyr_1.4.4                scran_1.16.0               
+##  [9] scater_1.16.2               ggplot2_3.3.2              
+## [11] scRNAseq_2.2.0              SingleCellExperiment_1.10.1
+## [13] SummarizedExperiment_1.18.2 DelayedArray_0.14.1        
+## [15] matrixStats_0.56.0          Biobase_2.48.0             
+## [17] GenomicRanges_1.40.0        GenomeInfoDb_1.24.2        
+## [19] IRanges_2.22.2              S4Vectors_0.26.1           
+## [21] BiocGenerics_0.34.0        
 ## 
 ## loaded via a namespace (and not attached):
 ##   [1] ggbeeswarm_0.6.0              colorspace_1.4-1             
 ##   [3] ellipsis_0.3.1                futile.logger_1.4.3          
 ##   [5] XVector_0.28.0                BiocNeighbors_1.6.0          
-##   [7] rstudioapi_0.11               bit64_0.9-7.1                
-##   [9] fansi_0.4.1                   RSpectra_0.16-0              
-##  [11] interactiveDisplayBase_1.26.3 AnnotationDbi_1.50.1         
-##  [13] codetools_0.2-16              knitr_1.29                   
-##  [15] jsonlite_1.7.0                Rsamtools_2.4.0              
-##  [17] uwot_0.1.8                    shiny_1.5.0                  
-##  [19] HDF5Array_1.16.1              BiocManager_1.30.10          
-##  [21] compiler_4.0.2                httr_1.4.1                   
-##  [23] dqrng_0.2.1                   assertthat_0.2.1             
-##  [25] Matrix_1.2-18                 fastmap_1.0.1                
-##  [27] cli_2.0.2                     limma_3.44.3                 
-##  [29] later_1.1.0.1                 BiocSingular_1.4.0           
-##  [31] formatR_1.7                   htmltools_0.5.0              
-##  [33] tools_4.0.2                   rsvd_1.0.3                   
-##  [35] igraph_1.2.5                  gtable_0.3.0                 
-##  [37] glue_1.4.1                    GenomeInfoDbData_1.2.3       
-##  [39] rappdirs_0.3.1                Rcpp_1.0.5                   
-##  [41] rapiclient_0.1.3              vctrs_0.3.2                  
-##  [43] Biostrings_2.56.0             ExperimentHub_1.14.0         
-##  [45] DelayedMatrixStats_1.10.1     xfun_0.15                    
-##  [47] stringr_1.4.0                 mime_0.9                     
-##  [49] lifecycle_0.2.0               irlba_2.3.3                  
-##  [51] statmod_1.4.34                XML_3.99-0.4                 
-##  [53] AnnotationHub_2.20.0          edgeR_3.30.3                 
-##  [55] zlibbioc_1.34.0               scales_1.1.1                 
-##  [57] promises_1.1.1                lambda.r_1.2.4               
-##  [59] yaml_2.2.1                    curl_4.3                     
-##  [61] memoise_1.1.0                 gridExtra_2.3                
-##  [63] stringi_1.4.6                 RSQLite_2.2.0                
-##  [65] BiocVersion_3.11.1            BiocParallel_1.22.0          
-##  [67] rlang_0.4.7                   pkgconfig_2.0.3              
-##  [69] bitops_1.0-6                  evaluate_0.14                
-##  [71] lattice_0.20-41               purrr_0.3.4                  
-##  [73] Rhdf5lib_1.10.1               GenomicAlignments_1.24.0     
+##   [7] rstudioapi_0.11               farver_2.0.3                 
+##   [9] bit64_0.9-7.1                 interactiveDisplayBase_1.26.3
+##  [11] AnnotationDbi_1.50.1          fansi_0.4.1                  
+##  [13] knitr_1.29                    jsonlite_1.7.0               
+##  [15] Rsamtools_2.4.0               shiny_1.5.0                  
+##  [17] HDF5Array_1.16.1              BiocManager_1.30.10          
+##  [19] compiler_4.0.2                httr_1.4.1                   
+##  [21] dqrng_0.2.1                   assertthat_0.2.1             
+##  [23] Matrix_1.2-18                 fastmap_1.0.1                
+##  [25] limma_3.44.3                  cli_2.0.2                    
+##  [27] formatR_1.7                   later_1.1.0.1                
+##  [29] BiocSingular_1.4.0            htmltools_0.5.0              
+##  [31] tools_4.0.2                   rsvd_1.0.3                   
+##  [33] igraph_1.2.5                  gtable_0.3.0                 
+##  [35] glue_1.4.1                    GenomeInfoDbData_1.2.3       
+##  [37] rappdirs_0.3.1                rapiclient_0.1.3             
+##  [39] Rcpp_1.0.5                    vctrs_0.3.2                  
+##  [41] Biostrings_2.56.0             ExperimentHub_1.14.0         
+##  [43] DelayedMatrixStats_1.10.1     xfun_0.15                    
+##  [45] stringr_1.4.0                 mime_0.9                     
+##  [47] lifecycle_0.2.0               irlba_2.3.3                  
+##  [49] statmod_1.4.34                XML_3.99-0.4                 
+##  [51] AnnotationHub_2.20.0          edgeR_3.30.3                 
+##  [53] zlibbioc_1.34.0               scales_1.1.1                 
+##  [55] promises_1.1.1                lambda.r_1.2.4               
+##  [57] yaml_2.2.1                    curl_4.3                     
+##  [59] memoise_1.1.0                 gridExtra_2.3                
+##  [61] stringi_1.4.6                 RSQLite_2.2.0                
+##  [63] BiocVersion_3.11.1            BiocParallel_1.22.0          
+##  [65] rlang_0.4.7                   pkgconfig_2.0.3              
+##  [67] bitops_1.0-6                  evaluate_0.14                
+##  [69] lattice_0.20-41               purrr_0.3.4                  
+##  [71] Rhdf5lib_1.10.1               GenomicAlignments_1.24.0     
+##  [73] labeling_0.3                  cowplot_1.0.0                
 ##  [75] bit_1.1-15.2                  tidyselect_1.1.0             
 ##  [77] magrittr_1.5                  bookdown_0.20                
 ##  [79] R6_2.4.1                      generics_0.0.2               

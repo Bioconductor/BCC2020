@@ -1,7 +1,14 @@
 # Next steps
 
-## Shiny apps
+## Protected data access (US researchers)
 
-## Protected data access
+- Visit HAMBURGER Profiles https://anvil.terra.bio/#profile
+- Link to NIH
+- Enables access to workspaces containing protected data
+
+## RStudio
+
+- See https://bioconductor.github.io/AnVIL_Admin/ for instructions
+- Still under active development -- sessions may end abruptly
 
 ## Other clouds

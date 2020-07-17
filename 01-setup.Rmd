@@ -6,5 +6,23 @@ Generally, cloud resources cost money, and therefore require a method
 of payment. But DON'T WORRY, we won't incur any expenses during this
 course.
 
+- [Create a google account][1]
+
+[1]: https://support.google.com/accounts/answer/27441?hl=en
+
 ## Create an AnVIL account
 
+- Visit https://anvil.terra.bio/#
+- Select the 'Hamburger' menu in the top left corner
+- Choose 'Sign in with Google'
+
+    - Multiple Google accounts? Make sure to use the one you've
+      registered with for this workshop.
+      
+## Confirm billing project
+
+- Under the hamburger, select your user name and 'Billing'
+- Confirm that 'bioconductor-rpci-bcc2020' is an account
+
+    - No account? Use REMO chat directly with Lori, providing the
+      email address in your AnVIL 'Profile'.

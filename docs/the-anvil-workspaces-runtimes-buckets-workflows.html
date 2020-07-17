@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 2 The AnVIL – workspaces, runtimes, buckets, workflows | R / Bioconductor in the AnVIL Cloud</title>
   <meta name="description" content="This book contains material for a 2 1/2 hour course offered at the Bioinformatics Community Conference 2020." />
-  <meta name="generator" content="bookdown 0.19 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 2 The AnVIL – workspaces, runtimes, buckets, workflows | R / Bioconductor in the AnVIL Cloud" />
   <meta property="og:type" content="book" />
@@ -32,8 +32,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="prerequisites-1.html"/>
-<link rel="next" href="the-anvil-r-bioconductor-package.html"/>
+<link rel="prev" href="prerequisites.html"/>
+<link rel="next" href="using-an-existing-workspace.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -72,49 +72,65 @@
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About</a><ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#abstract"><i class="fa fa-check"></i>Abstract</a></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html#prerequisites"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#incoming-expectations"><i class="fa fa-check"></i>Incoming expectations</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#learning-objectives"><i class="fa fa-check"></i>Learning objectives</a></li>
 </ul></li>
-<li class="chapter" data-level="1" data-path="prerequisites-1.html"><a href="prerequisites-1.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a><ul>
-<li class="chapter" data-level="1.1" data-path="prerequisites-1.html"><a href="prerequisites-1.html#create-a-google-billing-account"><i class="fa fa-check"></i><b>1.1</b> Create a google ‘billing account’</a></li>
-<li class="chapter" data-level="1.2" data-path="prerequisites-1.html"><a href="prerequisites-1.html#create-an-anvil-account"><i class="fa fa-check"></i><b>1.2</b> Create an AnVIL account</a></li>
+<li class="chapter" data-level="1" data-path="prerequisites.html"><a href="prerequisites.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a><ul>
+<li class="chapter" data-level="1.1" data-path="prerequisites.html"><a href="prerequisites.html#create-a-google-billing-account"><i class="fa fa-check"></i><b>1.1</b> Create a google ‘billing account’</a></li>
+<li class="chapter" data-level="1.2" data-path="prerequisites.html"><a href="prerequisites.html#create-an-anvil-account"><i class="fa fa-check"></i><b>1.2</b> Create an AnVIL account</a></li>
+<li class="chapter" data-level="1.3" data-path="prerequisites.html"><a href="prerequisites.html#confirm-billing-project"><i class="fa fa-check"></i><b>1.3</b> Confirm billing project</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="the-anvil-workspaces-runtimes-buckets-workflows.html"><a href="the-anvil-workspaces-runtimes-buckets-workflows.html"><i class="fa fa-check"></i><b>2</b> The AnVIL – workspaces, runtimes, buckets, workflows</a><ul>
-<li class="chapter" data-level="2.1" data-path="the-anvil-workspaces-runtimes-buckets-workflows.html"><a href="the-anvil-workspaces-runtimes-buckets-workflows.html#workspaces"><i class="fa fa-check"></i><b>2.1</b> Workspaces</a><ul>
-<li class="chapter" data-level="2.1.1" data-path="the-anvil-workspaces-runtimes-buckets-workflows.html"><a href="the-anvil-workspaces-runtimes-buckets-workflows.html#create-a-new-workspace"><i class="fa fa-check"></i><b>2.1.1</b> Create a new workspace</a></li>
-<li class="chapter" data-level="2.1.2" data-path="the-anvil-workspaces-runtimes-buckets-workflows.html"><a href="the-anvil-workspaces-runtimes-buckets-workflows.html#share-your-workspace-with-others"><i class="fa fa-check"></i><b>2.1.2</b> Share your workspace with others</a></li>
-<li class="chapter" data-level="2.1.3" data-path="the-anvil-workspaces-runtimes-buckets-workflows.html"><a href="the-anvil-workspaces-runtimes-buckets-workflows.html#use-an-existing-workspace"><i class="fa fa-check"></i><b>2.1.3</b> Use an existing workspace</a></li>
+<li class="chapter" data-level="2.1" data-path="the-anvil-workspaces-runtimes-buckets-workflows.html"><a href="the-anvil-workspaces-runtimes-buckets-workflows.html#navigation-icons"><i class="fa fa-check"></i><b>2.1</b> Navigation icons</a></li>
+<li class="chapter" data-level="2.2" data-path="the-anvil-workspaces-runtimes-buckets-workflows.html"><a href="the-anvil-workspaces-runtimes-buckets-workflows.html#use-an-existing-workspace"><i class="fa fa-check"></i><b>2.2</b> Use an existing workspace</a></li>
+<li class="chapter" data-level="2.3" data-path="the-anvil-workspaces-runtimes-buckets-workflows.html"><a href="the-anvil-workspaces-runtimes-buckets-workflows.html#dashboard"><i class="fa fa-check"></i><b>2.3</b> DASHBOARD</a></li>
+<li class="chapter" data-level="2.4" data-path="the-anvil-workspaces-runtimes-buckets-workflows.html"><a href="the-anvil-workspaces-runtimes-buckets-workflows.html#data"><i class="fa fa-check"></i><b>2.4</b> DATA</a></li>
+<li class="chapter" data-level="2.5" data-path="the-anvil-workspaces-runtimes-buckets-workflows.html"><a href="the-anvil-workspaces-runtimes-buckets-workflows.html#notebooks"><i class="fa fa-check"></i><b>2.5</b> NOTEBOOKS</a></li>
+<li class="chapter" data-level="2.6" data-path="the-anvil-workspaces-runtimes-buckets-workflows.html"><a href="the-anvil-workspaces-runtimes-buckets-workflows.html#workflows"><i class="fa fa-check"></i><b>2.6</b> WORKFLOWS</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="the-anvil-workspaces-runtimes-buckets-workflows.html"><a href="the-anvil-workspaces-runtimes-buckets-workflows.html#runtimes"><i class="fa fa-check"></i><b>2.2</b> Runtimes</a><ul>
-<li class="chapter" data-level="2.2.1" data-path="the-anvil-workspaces-runtimes-buckets-workflows.html"><a href="the-anvil-workspaces-runtimes-buckets-workflows.html#use-an-rstudio-runtime"><i class="fa fa-check"></i><b>2.2.1</b> Use an <em>RStudio</em> runtime</a></li>
-<li class="chapter" data-level="2.2.2" data-path="the-anvil-workspaces-runtimes-buckets-workflows.html"><a href="the-anvil-workspaces-runtimes-buckets-workflows.html#use-a-jupyter-notebook-with-r-kernel"><i class="fa fa-check"></i><b>2.2.2</b> Use a Jupyter notebook with <em>R</em> kernel</a></li>
+<li class="chapter" data-level="3" data-path="using-an-existing-workspace.html"><a href="using-an-existing-workspace.html"><i class="fa fa-check"></i><b>3</b> Using an existing workspace</a><ul>
+<li class="chapter" data-level="3.1" data-path="using-an-existing-workspace.html"><a href="using-an-existing-workspace.html#orchestrating-single-cell-analysis"><i class="fa fa-check"></i><b>3.1</b> Orchestrating single cell analysis</a></li>
+<li class="chapter" data-level="3.2" data-path="using-an-existing-workspace.html"><a href="using-an-existing-workspace.html#install-and-load-r-packages"><i class="fa fa-check"></i><b>3.2</b> Install and load <em>R</em> packages</a></li>
+<li class="chapter" data-level="3.3" data-path="using-an-existing-workspace.html"><a href="using-an-existing-workspace.html#example-data-as-a-singlecellexperiment"><i class="fa fa-check"></i><b>3.3</b> Example data as a SingleCellExperiment</a></li>
+<li class="chapter" data-level="3.4" data-path="using-an-existing-workspace.html"><a href="using-an-existing-workspace.html#the-quick-start-workflow"><i class="fa fa-check"></i><b>3.4</b> The ‘Quick start’ workflow</a></li>
+<li class="chapter" data-level="3.5" data-path="using-an-existing-workspace.html"><a href="using-an-existing-workspace.html#information-about-the-packages-used-in-this-session"><i class="fa fa-check"></i><b>3.5</b> Information about the packages used in this session</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="the-anvil-workspaces-runtimes-buckets-workflows.html"><a href="the-anvil-workspaces-runtimes-buckets-workflows.html#buckets"><i class="fa fa-check"></i><b>2.3</b> Buckets</a></li>
-<li class="chapter" data-level="2.4" data-path="the-anvil-workspaces-runtimes-buckets-workflows.html"><a href="the-anvil-workspaces-runtimes-buckets-workflows.html#workflows"><i class="fa fa-check"></i><b>2.4</b> Workflows</a></li>
+<li class="chapter" data-level="4" data-path="working-with-large-data.html"><a href="working-with-large-data.html"><i class="fa fa-check"></i><b>4</b> Working with large data</a><ul>
+<li class="chapter" data-level="4.1" data-path="working-with-large-data.html"><a href="working-with-large-data.html#human-cell-atlas-data-discovery"><i class="fa fa-check"></i><b>4.1</b> Human cell atlas data discovery</a></li>
+<li class="chapter" data-level="4.2" data-path="working-with-large-data.html"><a href="working-with-large-data.html#r-bioconductor-libraries"><i class="fa fa-check"></i><b>4.2</b> <em>R / Bioconductor</em> libraries</a></li>
+<li class="chapter" data-level="4.3" data-path="working-with-large-data.html"><a href="working-with-large-data.html#data-download-and-import"><i class="fa fa-check"></i><b>4.3</b> Data download and import</a></li>
+<li class="chapter" data-level="4.4" data-path="working-with-large-data.html"><a href="working-with-large-data.html#delayedarray-representation-of-large-on-disk-data"><i class="fa fa-check"></i><b>4.4</b> ‘DelayedArray’ representation of large on-disk data</a></li>
+<li class="chapter" data-level="4.5" data-path="working-with-large-data.html"><a href="working-with-large-data.html#subseting-and-in-memory-location-for-data-exploration"><i class="fa fa-check"></i><b>4.5</b> Subseting and in-memory location for data exploration</a></li>
+<li class="chapter" data-level="4.6" data-path="working-with-large-data.html"><a href="working-with-large-data.html#exploration-of-column-cell-annotations"><i class="fa fa-check"></i><b>4.6</b> Exploration of column (cell) annotations</a></li>
+<li class="chapter" data-level="4.7" data-path="working-with-large-data.html"><a href="working-with-large-data.html#invariant-cell-annotations"><i class="fa fa-check"></i><b>4.7</b> Invariant cell annotations</a></li>
+<li class="chapter" data-level="4.8" data-path="working-with-large-data.html"><a href="working-with-large-data.html#donor-provenance-and-organ-labels"><i class="fa fa-check"></i><b>4.8</b> Donor provenance and organ labels</a></li>
+<li class="chapter" data-level="4.9" data-path="working-with-large-data.html"><a href="working-with-large-data.html#sub-setting-data-based-on-cell-attributes"><i class="fa fa-check"></i><b>4.9</b> Sub-setting data based on cell attributes</a></li>
+<li class="chapter" data-level="4.10" data-path="using-an-existing-workspace.html"><a href="using-an-existing-workspace.html#information-about-the-packages-used-in-this-session"><i class="fa fa-check"></i><b>4.10</b> Information about the packages used in this session</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="the-anvil-r-bioconductor-package.html"><a href="the-anvil-r-bioconductor-package.html"><i class="fa fa-check"></i><b>3</b> The AnVIL R / Bioconductor package</a><ul>
-<li class="chapter" data-level="3.1" data-path="the-anvil-r-bioconductor-package.html"><a href="the-anvil-r-bioconductor-package.html#install-the-anvil-package"><i class="fa fa-check"></i><b>3.1</b> Install the AnVIL package</a></li>
-<li class="chapter" data-level="3.2" data-path="the-anvil-r-bioconductor-package.html"><a href="the-anvil-r-bioconductor-package.html#workspace-compute-node-file-system"><i class="fa fa-check"></i><b>3.2</b> Workspace compute node file system</a></li>
-<li class="chapter" data-level="3.3" data-path="the-anvil-r-bioconductor-package.html"><a href="the-anvil-r-bioconductor-package.html#workspace-bucket"><i class="fa fa-check"></i><b>3.3</b> Workspace bucket</a></li>
-<li class="chapter" data-level="3.4" data-path="the-anvil-r-bioconductor-package.html"><a href="the-anvil-r-bioconductor-package.html#workspace-tables"><i class="fa fa-check"></i><b>3.4</b> Workspace tables</a></li>
+<li class="chapter" data-level="5" data-path="the-anvil-r-bioconductor-package.html"><a href="the-anvil-r-bioconductor-package.html"><i class="fa fa-check"></i><b>5</b> The AnVIL R / Bioconductor package</a><ul>
+<li class="chapter" data-level="5.1" data-path="working-with-large-data.html"><a href="working-with-large-data.html#r-bioconductor-libraries"><i class="fa fa-check"></i><b>5.1</b> <em>R / Bioconductor</em> libraries</a></li>
+<li class="chapter" data-level="5.2" data-path="the-anvil-r-bioconductor-package.html"><a href="the-anvil-r-bioconductor-package.html#the-anvil-workspace"><i class="fa fa-check"></i><b>5.2</b> The <em>AnVIL</em> workspace</a></li>
+<li class="chapter" data-level="5.3" data-path="the-anvil-r-bioconductor-package.html"><a href="the-anvil-r-bioconductor-package.html#saving-analysis-products"><i class="fa fa-check"></i><b>5.3</b> Saving analysis products</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="the-anvil-r-bioconductor-package.html"><a href="the-anvil-r-bioconductor-package.html#an-abbreviated-work-flow"><i class="fa fa-check"></i><b>5.3.1</b> An abbreviated work flow</a></li>
+<li class="chapter" data-level="5.3.2" data-path="the-anvil-r-bioconductor-package.html"><a href="the-anvil-r-bioconductor-package.html#saving-results-on-the-runtime-instance"><i class="fa fa-check"></i><b>5.3.2</b> Saving results on the runtime instance</a></li>
+<li class="chapter" data-level="5.3.3" data-path="the-anvil-r-bioconductor-package.html"><a href="the-anvil-r-bioconductor-package.html#backing-up-results-to-the-workspace-bucket"><i class="fa fa-check"></i><b>5.3.3</b> Backing up results to the workspace bucket</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="interactive-use-single-cell-exploration.html"><a href="interactive-use-single-cell-exploration.html"><i class="fa fa-check"></i><b>4</b> Interactive use: single cell exploration</a><ul>
-<li class="chapter" data-level="4.1" data-path="interactive-use-single-cell-exploration.html"><a href="interactive-use-single-cell-exploration.html#background"><i class="fa fa-check"></i><b>4.1</b> Background</a><ul>
-<li class="chapter" data-level="4.1.1" data-path="interactive-use-single-cell-exploration.html"><a href="interactive-use-single-cell-exploration.html#biology-of-single-cell-sequencing"><i class="fa fa-check"></i><b>4.1.1</b> Biology of single cell sequencing</a></li>
-<li class="chapter" data-level="4.1.2" data-path="interactive-use-single-cell-exploration.html"><a href="interactive-use-single-cell-exploration.html#the-human-cell-atlas"><i class="fa fa-check"></i><b>4.1.2</b> The Human Cell Atlas</a></li>
+<li class="chapter" data-level="5.4" data-path="the-anvil-r-bioconductor-package.html"><a href="the-anvil-r-bioconductor-package.html#workspace-data-tables"><i class="fa fa-check"></i><b>5.4</b> Workspace DATA ‘TABLES’</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="the-anvil-r-bioconductor-package.html"><a href="the-anvil-r-bioconductor-package.html#metadata-discovery-and-export-from-the-hca"><i class="fa fa-check"></i><b>5.4.1</b> Metadata discovery and export from the HCA</a></li>
+<li class="chapter" data-level="5.4.2" data-path="the-anvil-r-bioconductor-package.html"><a href="the-anvil-r-bioconductor-package.html#accessing-tables"><i class="fa fa-check"></i><b>5.4.2</b> Accessing TABLES</a></li>
+<li class="chapter" data-level="5.4.3" data-path="the-anvil-r-bioconductor-package.html"><a href="the-anvil-r-bioconductor-package.html#what-do-we-learn-about-the-samples-in-this-experiment"><i class="fa fa-check"></i><b>5.4.3</b> What do we learn about the samples in this experiment?</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="interactive-use-single-cell-exploration.html"><a href="interactive-use-single-cell-exploration.html#data-discovery-and-export-from-the-hca"><i class="fa fa-check"></i><b>4.2</b> Data discovery and export from the HCA</a></li>
-<li class="chapter" data-level="4.3" data-path="interactive-use-single-cell-exploration.html"><a href="interactive-use-single-cell-exploration.html#exploratory-analysis-in-r"><i class="fa fa-check"></i><b>4.3</b> Exploratory analysis in R</a></li>
+<li class="chapter" data-level="5.5" data-path="using-an-existing-workspace.html"><a href="using-an-existing-workspace.html#information-about-the-packages-used-in-this-session"><i class="fa fa-check"></i><b>5.5</b> Information about the packages used in this session</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="formal-work-flows-human-cell-atlas-optimus-pipeline.html"><a href="formal-work-flows-human-cell-atlas-optimus-pipeline.html"><i class="fa fa-check"></i><b>5</b> Formal work flows: Human Cell Atlas ‘Optimus’ pipeline</a><ul>
-<li class="chapter" data-level="5.1" data-path="formal-work-flows-human-cell-atlas-optimus-pipeline.html"><a href="formal-work-flows-human-cell-atlas-optimus-pipeline.html#the-hca-optimus-single-cell-analysis-pipeline"><i class="fa fa-check"></i><b>5.1</b> The HCA Optimus single cell analysis pipeline</a></li>
-<li class="chapter" data-level="5.2" data-path="formal-work-flows-human-cell-atlas-optimus-pipeline.html"><a href="formal-work-flows-human-cell-atlas-optimus-pipeline.html#running-a-work-flow"><i class="fa fa-check"></i><b>5.2</b> Running a work flow</a></li>
-<li class="chapter" data-level="5.3" data-path="formal-work-flows-human-cell-atlas-optimus-pipeline.html"><a href="formal-work-flows-human-cell-atlas-optimus-pipeline.html#using-data-in-r"><i class="fa fa-check"></i><b>5.3</b> Using data in <em>R</em></a></li>
+<li class="chapter" data-level="6" data-path="formal-work-flows-human-cell-atlas-optimus-pipeline.html"><a href="formal-work-flows-human-cell-atlas-optimus-pipeline.html"><i class="fa fa-check"></i><b>6</b> Formal work flows: Human Cell Atlas ‘Optimus’ pipeline</a><ul>
+<li class="chapter" data-level="6.1" data-path="formal-work-flows-human-cell-atlas-optimus-pipeline.html"><a href="formal-work-flows-human-cell-atlas-optimus-pipeline.html#the-hca-optimus-single-cell-analysis-pipeline"><i class="fa fa-check"></i><b>6.1</b> The HCA Optimus single cell analysis pipeline</a></li>
+<li class="chapter" data-level="6.2" data-path="formal-work-flows-human-cell-atlas-optimus-pipeline.html"><a href="formal-work-flows-human-cell-atlas-optimus-pipeline.html#running-a-work-flow"><i class="fa fa-check"></i><b>6.2</b> Running a work flow</a></li>
+<li class="chapter" data-level="6.3" data-path="formal-work-flows-human-cell-atlas-optimus-pipeline.html"><a href="formal-work-flows-human-cell-atlas-optimus-pipeline.html#using-data-in-r"><i class="fa fa-check"></i><b>6.3</b> Using data in <em>R</em></a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="next-steps.html"><a href="next-steps.html"><i class="fa fa-check"></i><b>6</b> Next steps</a><ul>
-<li class="chapter" data-level="6.1" data-path="next-steps.html"><a href="next-steps.html#shiny-apps"><i class="fa fa-check"></i><b>6.1</b> Shiny apps</a></li>
-<li class="chapter" data-level="6.2" data-path="next-steps.html"><a href="next-steps.html#protected-data-access"><i class="fa fa-check"></i><b>6.2</b> Protected data access</a></li>
-<li class="chapter" data-level="6.3" data-path="next-steps.html"><a href="next-steps.html#other-clouds"><i class="fa fa-check"></i><b>6.3</b> Other clouds</a></li>
+<li class="chapter" data-level="7" data-path="next-steps.html"><a href="next-steps.html"><i class="fa fa-check"></i><b>7</b> Next steps</a><ul>
+<li class="chapter" data-level="7.1" data-path="next-steps.html"><a href="next-steps.html#protected-data-access-us-researchers"><i class="fa fa-check"></i><b>7.1</b> Protected data access (US researchers)</a></li>
+<li class="chapter" data-level="7.2" data-path="next-steps.html"><a href="next-steps.html#rstudio"><i class="fa fa-check"></i><b>7.2</b> RStudio</a></li>
+<li class="chapter" data-level="7.3" data-path="next-steps.html"><a href="next-steps.html#other-clouds"><i class="fa fa-check"></i><b>7.3</b> Other clouds</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -138,32 +154,83 @@
             <section class="normal" id="section-">
 <div id="the-anvil-workspaces-runtimes-buckets-workflows" class="section level1">
 <h1><span class="header-section-number">Chapter 2</span> The AnVIL – workspaces, runtimes, buckets, workflows</h1>
-<div id="workspaces" class="section level2">
-<h2><span class="header-section-number">2.1</span> Workspaces</h2>
-<div id="create-a-new-workspace" class="section level3">
-<h3><span class="header-section-number">2.1.1</span> Create a new workspace</h3>
+<p>In this section we learn about</p>
+<ul>
+<li>Cloning a ‘WORKSPACES’ for coordinating access to particular data
+sets and analyses</li>
+<li>Creating a Notebook runtimes for cloud-based computation</li>
+<li>Understanding the relationship between workspaace, runtime, DATA,
+and NOTEBOOKS.</li>
+</ul>
+<div id="navigation-icons" class="section level2">
+<h2><span class="header-section-number">2.1</span> Navigation icons</h2>
+<ul>
+<li>HAMBURGER</li>
+<li>TEARDROP</li>
+<li>PLUS</li>
+</ul>
 </div>
-<div id="share-your-workspace-with-others" class="section level3">
-<h3><span class="header-section-number">2.1.2</span> Share your workspace with others</h3>
+<div id="use-an-existing-workspace" class="section level2">
+<h2><span class="header-section-number">2.2</span> Use an existing workspace</h2>
+<p>Search for the ‘Bioconductor’ featured workspace.</p>
+<ul>
+<li>Choose the HAMBURGER menu, ‘Your workspaces’ item</li>
+<li>Search (at the top of the screen) for ‘Bioconductor-BCC2020’</li>
+<li><p>This should appear under ‘My Workspaces’</p>
+<ul>
+<li>Problems? Provide your email account to Lori or Nitesh in REMO chat</li>
+</ul></li>
+</ul>
+<p>Clone</p>
+<ul>
+<li>Choose the TEARDROP associated with this workspace</li>
+<li>Select ‘Clone’</li>
+<li>Name the workspace, e.g,. <code>Bioconductor-bcc2020-july-18-2020</code> or similar.</li>
+<li>Associate the cloned workspace with the <code>bioconductor-rpci-bcc2020</code>
+billing account</li>
+</ul>
 </div>
-<div id="use-an-existing-workspace" class="section level3">
-<h3><span class="header-section-number">2.1.3</span> Use an existing workspace</h3>
+<div id="dashboard" class="section level2">
+<h2><span class="header-section-number">2.3</span> DASHBOARD</h2>
+<p>Runtimes (top right)</p>
+<ul>
+<li><p>Select the ‘R / Bioconductor…’ runtime environment</p>
+<ul>
+<li>‘What’s installed on this environment’</li>
+<li>Compute power</li>
+</ul></li>
+<li><p>Runtime can be used across different workspaces</p></li>
+</ul>
+<p>Google bucket</p>
+<ul>
+<li>Associated with the work space, managed by Terra. Persistent storage.</li>
+</ul>
 </div>
+<div id="data" class="section level2">
+<h2><span class="header-section-number">2.4</span> DATA</h2>
+<p>TABLES</p>
+<ul>
+<li>Usually, metadata referencing cloud-based data sets</li>
+<li>Ours: Human Cell Atlas BAM files for a particular study</li>
+</ul>
+<p>…</p>
+<p>OTHER DATA</p>
+<ul>
+<li>Google bucket content</li>
+<li>Persits even if new runtime selected</li>
+</ul>
 </div>
-<div id="runtimes" class="section level2">
-<h2><span class="header-section-number">2.2</span> Runtimes</h2>
-<div id="use-an-rstudio-runtime" class="section level3">
-<h3><span class="header-section-number">2.2.1</span> Use an <em>RStudio</em> runtime</h3>
-</div>
-<div id="use-a-jupyter-notebook-with-r-kernel" class="section level3">
-<h3><span class="header-section-number">2.2.2</span> Use a Jupyter notebook with <em>R</em> kernel</h3>
-</div>
-</div>
-<div id="buckets" class="section level2">
-<h2><span class="header-section-number">2.3</span> Buckets</h2>
+<div id="notebooks" class="section level2">
+<h2><span class="header-section-number">2.5</span> NOTEBOOKS</h2>
+<p>Existing notebooks – TEARDROP</p>
+<ul>
+<li>Preview: read-only</li>
+<li>Edit: edit, evaluate, and save changes</li>
+<li>Playground: edit, evalaute, but do not save changes</li>
+</ul>
 </div>
 <div id="workflows" class="section level2">
-<h2><span class="header-section-number">2.4</span> Workflows</h2>
+<h2><span class="header-section-number">2.6</span> WORKFLOWS</h2>
 
 </div>
 </div>
@@ -172,8 +239,8 @@
           </div>
         </div>
       </div>
-<a href="prerequisites-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="the-anvil-r-bioconductor-package.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="prerequisites.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="using-an-existing-workspace.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

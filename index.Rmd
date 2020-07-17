@@ -41,7 +41,7 @@ analysis and comprehension, using Human Cell Atlas single-cell
 datasets as an example; and querying cloud-based consortium data for
 integration with a users' own data sets.
 
-## Prerequisites {-}
+## Incoming expectations {-}
 
 Participants should be comfortable working with R and RStudio.  Some
 familiarity with Bioconductor is helpful but not required.  No prior

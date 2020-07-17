@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Working with large data | R / Bioconductor in the AnVIL Cloud</title>
+  <meta name="description" content="This book contains material for a 2 1/2 hour course offered at the Bioinformatics Community Conference 2020." />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Working with large data | R / Bioconductor in the AnVIL Cloud" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This book contains material for a 2 1/2 hour course offered at the Bioinformatics Community Conference 2020." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Working with large data | R / Bioconductor in the AnVIL Cloud" />
+  
+  <meta name="twitter:description" content="This book contains material for a 2 1/2 hour course offered at the Bioinformatics Community Conference 2020." />
+  
+
+<meta name="author" content="Martin Morgan" />
+<meta name="author" content="Nitesh Turaga" />
+<meta name="author" content="Lori Shepherd" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="using-an-existing-workspace.html"/>
+<link rel="next" href="the-anvil-r-bioconductor-package.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R / Bioconductor in the AnVIL Cloud</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>About</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#abstract"><i class="fa fa-check"></i>Abstract</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#prerequisites"><i class="fa fa-check"></i>Prerequisites</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#learning-objectives"><i class="fa fa-check"></i>Learning objectives</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html#prerequisites"><i class="fa fa-check"></i><b>1</b> Prerequisites</a><ul>
+<li class="chapter" data-level="1.1" data-path="prerequisites.html"><a href="prerequisites.html"><i class="fa fa-check"></i><b>1.1</b> Create a google ‘billing account’</a></li>
+<li class="chapter" data-level="1.2" data-path="prerequisites.html"><a href="prerequisites.html#create-an-anvil-account"><i class="fa fa-check"></i><b>1.2</b> Create an AnVIL account</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="the-anvil-workspaces-runtimes-buckets-workflows.html"><a href="the-anvil-workspaces-runtimes-buckets-workflows.html"><i class="fa fa-check"></i><b>2</b> The AnVIL – workspaces, runtimes, buckets, workflows</a><ul>
+<li class="chapter" data-level="2.1" data-path="the-anvil-workspaces-runtimes-buckets-workflows.html"><a href="the-anvil-workspaces-runtimes-buckets-workflows.html#navigation-icons"><i class="fa fa-check"></i><b>2.1</b> Navigation icons</a></li>
+<li class="chapter" data-level="2.2" data-path="the-anvil-workspaces-runtimes-buckets-workflows.html"><a href="the-anvil-workspaces-runtimes-buckets-workflows.html#use-an-existing-workspace"><i class="fa fa-check"></i><b>2.2</b> Use an existing workspace</a></li>
+<li class="chapter" data-level="2.3" data-path="the-anvil-workspaces-runtimes-buckets-workflows.html"><a href="the-anvil-workspaces-runtimes-buckets-workflows.html#jupyter-notebook-runtimes"><i class="fa fa-check"></i><b>2.3</b> Jupyter notebook runtimes</a></li>
+<li class="chapter" data-level="2.4" data-path="the-anvil-workspaces-runtimes-buckets-workflows.html"><a href="the-anvil-workspaces-runtimes-buckets-workflows.html#google-bucket"><i class="fa fa-check"></i><b>2.4</b> Google bucket</a></li>
+<li class="chapter" data-level="2.5" data-path="the-anvil-workspaces-runtimes-buckets-workflows.html"><a href="the-anvil-workspaces-runtimes-buckets-workflows.html#notebooks"><i class="fa fa-check"></i><b>2.5</b> Notebooks</a></li>
+<li class="chapter" data-level="2.6" data-path="the-anvil-workspaces-runtimes-buckets-workflows.html"><a href="the-anvil-workspaces-runtimes-buckets-workflows.html#workflows"><i class="fa fa-check"></i><b>2.6</b> Workflows</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="using-an-existing-workspace.html"><a href="using-an-existing-workspace.html"><i class="fa fa-check"></i><b>3</b> Using an existing workspace</a><ul>
+<li class="chapter" data-level="3.1" data-path="using-an-existing-workspace.html"><a href="using-an-existing-workspace.html#orchestrating-single-cell-analysis"><i class="fa fa-check"></i><b>3.1</b> Orchestrating single cell analysis</a></li>
+<li class="chapter" data-level="3.2" data-path="using-an-existing-workspace.html"><a href="using-an-existing-workspace.html#install-and-load-r-packages"><i class="fa fa-check"></i><b>3.2</b> Install and load <em>R</em> packages</a></li>
+<li class="chapter" data-level="3.3" data-path="using-an-existing-workspace.html"><a href="using-an-existing-workspace.html#example-data-as-a-singlecellexperiment"><i class="fa fa-check"></i><b>3.3</b> Example data as a SingleCellExperiment</a></li>
+<li class="chapter" data-level="3.4" data-path="using-an-existing-workspace.html"><a href="using-an-existing-workspace.html#the-quick-start-workflow"><i class="fa fa-check"></i><b>3.4</b> The ‘Quick start’ workflow</a></li>
+<li class="chapter" data-level="3.5" data-path="using-an-existing-workspace.html"><a href="using-an-existing-workspace.html#information-about-the-packages-used-in-this-session"><i class="fa fa-check"></i><b>3.5</b> Information about the packages used in this session</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="working-with-large-data.html"><a href="working-with-large-data.html"><i class="fa fa-check"></i><b>4</b> Working with large data</a><ul>
+<li class="chapter" data-level="4.1" data-path="working-with-large-data.html"><a href="working-with-large-data.html#human-cell-atlas-data-discovery"><i class="fa fa-check"></i><b>4.1</b> Human cell atlas data discovery</a></li>
+<li class="chapter" data-level="4.2" data-path="working-with-large-data.html"><a href="working-with-large-data.html#r-bioconductor-libraries"><i class="fa fa-check"></i><b>4.2</b> <em>R / Bioconductor</em> libraries</a></li>
+<li class="chapter" data-level="4.3" data-path="working-with-large-data.html"><a href="working-with-large-data.html#data-download-and-import"><i class="fa fa-check"></i><b>4.3</b> Data download and import</a></li>
+<li class="chapter" data-level="4.4" data-path="working-with-large-data.html"><a href="working-with-large-data.html#delayedarray-representation-of-large-on-disk-data"><i class="fa fa-check"></i><b>4.4</b> ‘DelayedArray’ representation of large on-disk data</a></li>
+<li class="chapter" data-level="4.5" data-path="working-with-large-data.html"><a href="working-with-large-data.html#subseting-and-in-memory-location-for-data-exploration"><i class="fa fa-check"></i><b>4.5</b> Subseting and in-memory location for data exploration</a></li>
+<li class="chapter" data-level="4.6" data-path="working-with-large-data.html"><a href="working-with-large-data.html#exploration-of-column-cell-annotations"><i class="fa fa-check"></i><b>4.6</b> Exploration of column (cell) annotations</a></li>
+<li class="chapter" data-level="4.7" data-path="working-with-large-data.html"><a href="working-with-large-data.html#invariant-cell-annotations"><i class="fa fa-check"></i><b>4.7</b> Invariant cell annotations</a></li>
+<li class="chapter" data-level="4.8" data-path="working-with-large-data.html"><a href="working-with-large-data.html#donor-provenance-and-organ-labels"><i class="fa fa-check"></i><b>4.8</b> Donor provenance and organ labels</a></li>
+<li class="chapter" data-level="4.9" data-path="working-with-large-data.html"><a href="working-with-large-data.html#sub-setting-data-based-on-cell-attributes"><i class="fa fa-check"></i><b>4.9</b> Sub-setting data based on cell attributes</a></li>
+<li class="chapter" data-level="4.10" data-path="using-an-existing-workspace.html"><a href="using-an-existing-workspace.html#information-about-the-packages-used-in-this-session"><i class="fa fa-check"></i><b>4.10</b> Information about the packages used in this session</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="the-anvil-r-bioconductor-package.html"><a href="the-anvil-r-bioconductor-package.html"><i class="fa fa-check"></i><b>5</b> The AnVIL R / Bioconductor package</a><ul>
+<li class="chapter" data-level="5.1" data-path="working-with-large-data.html"><a href="working-with-large-data.html#r-bioconductor-libraries"><i class="fa fa-check"></i><b>5.1</b> <em>R / Bioconductor</em> libraries</a></li>
+<li class="chapter" data-level="5.2" data-path="the-anvil-r-bioconductor-package.html"><a href="the-anvil-r-bioconductor-package.html#the-anvil-workspace"><i class="fa fa-check"></i><b>5.2</b> The <em>AnVIL</em> workspace</a></li>
+<li class="chapter" data-level="5.3" data-path="the-anvil-r-bioconductor-package.html"><a href="the-anvil-r-bioconductor-package.html#saving-analysis-products"><i class="fa fa-check"></i><b>5.3</b> Saving analysis products</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="the-anvil-r-bioconductor-package.html"><a href="the-anvil-r-bioconductor-package.html#an-abbreviated-work-flow"><i class="fa fa-check"></i><b>5.3.1</b> An abbreviated work flow</a></li>
+<li class="chapter" data-level="5.3.2" data-path="the-anvil-r-bioconductor-package.html"><a href="the-anvil-r-bioconductor-package.html#saving-results-on-the-runtime-instance"><i class="fa fa-check"></i><b>5.3.2</b> Saving results on the runtime instance</a></li>
+<li class="chapter" data-level="5.3.3" data-path="the-anvil-r-bioconductor-package.html"><a href="the-anvil-r-bioconductor-package.html#backing-up-results-to-the-workspace-bucket"><i class="fa fa-check"></i><b>5.3.3</b> Backing up results to the workspace bucket</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="the-anvil-r-bioconductor-package.html"><a href="the-anvil-r-bioconductor-package.html#workspace-data-tables"><i class="fa fa-check"></i><b>5.4</b> Workspace DATA ‘TABLES’</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="the-anvil-r-bioconductor-package.html"><a href="the-anvil-r-bioconductor-package.html#metadata-discovery-and-export-from-the-hca"><i class="fa fa-check"></i><b>5.4.1</b> Metadata discovery and export from the HCA</a></li>
+<li class="chapter" data-level="5.4.2" data-path="the-anvil-r-bioconductor-package.html"><a href="the-anvil-r-bioconductor-package.html#accessing-tables"><i class="fa fa-check"></i><b>5.4.2</b> Accessing TABLES</a></li>
+<li class="chapter" data-level="5.4.3" data-path="the-anvil-r-bioconductor-package.html"><a href="the-anvil-r-bioconductor-package.html#what-do-we-learn-about-the-samples-in-this-experiment"><i class="fa fa-check"></i><b>5.4.3</b> What do we learn about the samples in this experiment?</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="using-an-existing-workspace.html"><a href="using-an-existing-workspace.html#information-about-the-packages-used-in-this-session"><i class="fa fa-check"></i><b>5.5</b> Information about the packages used in this session</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="formal-work-flows-human-cell-atlas-optimus-pipeline.html"><a href="formal-work-flows-human-cell-atlas-optimus-pipeline.html"><i class="fa fa-check"></i><b>6</b> Formal work flows: Human Cell Atlas ‘Optimus’ pipeline</a><ul>
+<li class="chapter" data-level="6.1" data-path="formal-work-flows-human-cell-atlas-optimus-pipeline.html"><a href="formal-work-flows-human-cell-atlas-optimus-pipeline.html#the-hca-optimus-single-cell-analysis-pipeline"><i class="fa fa-check"></i><b>6.1</b> The HCA Optimus single cell analysis pipeline</a></li>
+<li class="chapter" data-level="6.2" data-path="formal-work-flows-human-cell-atlas-optimus-pipeline.html"><a href="formal-work-flows-human-cell-atlas-optimus-pipeline.html#running-a-work-flow"><i class="fa fa-check"></i><b>6.2</b> Running a work flow</a></li>
+<li class="chapter" data-level="6.3" data-path="formal-work-flows-human-cell-atlas-optimus-pipeline.html"><a href="formal-work-flows-human-cell-atlas-optimus-pipeline.html#using-data-in-r"><i class="fa fa-check"></i><b>6.3</b> Using data in <em>R</em></a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="next-steps.html"><a href="next-steps.html"><i class="fa fa-check"></i><b>7</b> Next steps</a><ul>
+<li class="chapter" data-level="7.1" data-path="next-steps.html"><a href="next-steps.html#shiny-apps"><i class="fa fa-check"></i><b>7.1</b> Shiny apps</a></li>
+<li class="chapter" data-level="7.2" data-path="next-steps.html"><a href="next-steps.html#protected-data-access"><i class="fa fa-check"></i><b>7.2</b> Protected data access</a></li>
+<li class="chapter" data-level="7.3" data-path="next-steps.html"><a href="next-steps.html#other-clouds"><i class="fa fa-check"></i><b>7.3</b> Other clouds</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R / Bioconductor in the AnVIL Cloud</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="working-with-large-data" class="section level1">
+<h1><span class="header-section-number">Chapter 4</span> Working with large data</h1>
+<p>In this section we learn about</p>
+<ul>
+<li>Importing data from the Human Cell Atlas</li>
+<li>Working with large on-disk data</li>
+<li>Exploring tabular data using ‘tidyverse’ tools</li>
+</ul>
+<p>Packages used</p>
+<ul>
+<li><a href="https://bioconductor.org/packages/BiocFileCache">BiocFileCache</a> – local cache of internet and other files.</li>
+<li><a href="https://bioconductor.org/packages/LoomExperiment">LoomExperiment</a> – ‘loom’ single-cell experiment representation</li>
+<li><a href="https://bioconductor.org/packages/DelayedArray">DelayedArray</a> – large on-disk matrix-like data representation</li>
+<li><a href="https://cran.r-project.org/package=dplyr">dplyr</a> – ‘tidyverse’ maniplation of data.frame-like data</li>
+</ul>
+<div id="human-cell-atlas-data-discovery" class="section level2">
+<h2><span class="header-section-number">4.1</span> Human cell atlas data discovery</h2>
+<p>Visit the <a href="https://data.humancellatlas.org/explore/projects">Human Cell Atlas Data Portal</a>.</p>
+<p>Select on the project “<a href="https://data.humancellatlas.org/explore/projects/4a95101c-9ffc-4f30-a809-f04518a23803">A single-cell reference map of transcriptional
+states for human blood and tissue T cell activation</a>” (second item
+on the default screen, as of this writing). Note that the data set is
+very well documented. We will work with the ‘Expression Matrices’
+(left panel) in this section of the workshop, and ‘Analysis Protocol
+(optimus_v1.3.5)’ (right sidebar) in the next section of the workshop.</p>
+<p>Select the <code>Expression Matrices</code> link.</p>
+<p>Copy the link to the ‘loom’ format matrix.</p>
+</div>
+<div id="r-bioconductor-libraries" class="section level2">
+<h2><span class="header-section-number">4.2</span> <em>R / Bioconductor</em> libraries</h2>
+<p>Return to AnVIL and create a new notebook. Make sure that the runtime
+is available, and the notebook in ‘edit’ mode.</p>
+<p>Make sure that relevant software is loaded. The first time this code
+is executed, it will install <a href="https://bioconductor.org/packages/LoomExperiment">LoomExperiment</a> – installation will
+take about 45 seconds.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" data-line-number="1">packages &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;LoomExperiment&quot;</span>, <span class="st">&quot;SingleCellExperiment&quot;</span>, <span class="st">&quot;dplyr&quot;</span>, <span class="st">&quot;BiocFileCache&quot;</span>)</a>
+<a class="sourceLine" id="cb30-2" data-line-number="2">need &lt;-<span class="st"> </span>packages[ <span class="op">!</span>packages <span class="op">%in%</span><span class="st"> </span><span class="kw">rownames</span>(<span class="kw">installed.packages</span>()) ]</a>
+<a class="sourceLine" id="cb30-3" data-line-number="3"><span class="cf">if</span> (<span class="kw">length</span>(need))</a>
+<a class="sourceLine" id="cb30-4" data-line-number="4">    BiocManager<span class="op">::</span><span class="kw">install</span>(need, <span class="dt">update =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<p>Load the package we will use during the session</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" data-line-number="1"><span class="kw">suppressPackageStartupMessages</span>({</a>
+<a class="sourceLine" id="cb31-2" data-line-number="2">    <span class="kw">library</span>(BiocFileCache)</a>
+<a class="sourceLine" id="cb31-3" data-line-number="3">    <span class="kw">library</span>(LoomExperiment)</a>
+<a class="sourceLine" id="cb31-4" data-line-number="4">    <span class="kw">library</span>(SingleCellExperiment)</a>
+<a class="sourceLine" id="cb31-5" data-line-number="5">    <span class="kw">library</span>(dplyr)</a>
+<a class="sourceLine" id="cb31-6" data-line-number="6">})</a></code></pre></div>
+</div>
+<div id="data-download-and-import" class="section level2">
+<h2><span class="header-section-number">4.3</span> Data download and import</h2>
+<p>Retrieve the HCA matrix. Do this using <code>iocFileCache</code>, a package
+which creates and maintains a local collection of files.</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" data-line-number="1">url &lt;-<span class="st"> &quot;https://data.humancellatlas.org/project-assets/project-matrices/4a95101c-9ffc-4f30-a809-f04518a23803.homo_sapiens.loom&quot;</span></a>
+<a class="sourceLine" id="cb32-2" data-line-number="2">loom_file &lt;-<span class="st"> </span>BiocFileCache<span class="op">::</span><span class="kw">bfcrpath</span>(<span class="dt">rnames =</span> url)</a></code></pre></div>
+<p>Import the expression matrix into <em>R</em> using the <code>LoomExperiment</code>
+package.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" data-line-number="1">loom &lt;-<span class="st"> </span><span class="kw">import</span>(loom_file)</a>
+<a class="sourceLine" id="cb33-2" data-line-number="2">loom</a></code></pre></div>
+<pre><code>## class: LoomExperiment 
+## dim: 58347 267360 
+## metadata(0):
+## assays(1): matrix
+## rownames: NULL
+## rowData names(9): Accession Gene ... genus_species isgene
+## colnames: NULL
+## colData names(44): CellID analysis_protocol.protocol_core.protocol_id
+##   ... specimen_from_organism.provenance.document_id total_umis
+## rowGraphs(0): NULL
+## colGraphs(0): NULL</code></pre>
+</div>
+<div id="delayedarray-representation-of-large-on-disk-data" class="section level2">
+<h2><span class="header-section-number">4.4</span> ‘DelayedArray’ representation of large on-disk data</h2>
+<p>The experiment has 58347 rows (genes) and 267360 columns
+(cells). Re-name the assay to be <code>&quot;counts&quot;</code></p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" data-line-number="1"><span class="kw">assayNames</span>(loom) &lt;-<span class="st"> &quot;counts&quot;</span></a>
+<a class="sourceLine" id="cb35-2" data-line-number="2">loom</a></code></pre></div>
+<pre><code>## class: LoomExperiment 
+## dim: 58347 267360 
+## metadata(0):
+## assays(1): counts
+## rownames: NULL
+## rowData names(9): Accession Gene ... genus_species isgene
+## colnames: NULL
+## colData names(44): CellID analysis_protocol.protocol_core.protocol_id
+##   ... specimen_from_organism.provenance.document_id total_umis
+## rowGraphs(0): NULL
+## colGraphs(0): NULL</code></pre>
+<p>and take a look at the count data</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" data-line-number="1"><span class="kw">assay</span>(loom, <span class="st">&quot;counts&quot;</span>)</a></code></pre></div>
+<pre><code>## &lt;58347 x 267360&gt; matrix of class DelayedMatrix and type &quot;double&quot;:
+##               [,1]      [,2]      [,3] ... [,267359] [,267360]
+##     [1,]         0         0         0   .         0         0
+##     [2,]         0         0         0   .         0         0
+##     [3,]         0         0         0   .         0         1
+##     [4,]         0         0         1   .         0         0
+##     [5,]         0         0         0   .         0         0
+##      ...         .         .         .   .         .         .
+## [58343,]         0         0         0   .         0         0
+## [58344,]         0         0         0   .         0         0
+## [58345,]         0         0         0   .         0         0
+## [58346,]         0         0         0   .         0         0
+## [58347,]         0         0         0   .         0         0</code></pre>
+<p>This is an object of class <code>DelayedArray</code>, defined in the
+<code>DelayedArray</code> package. It behaves like a regular matrix, but the
+data is stored on-disk and only accessed when necessary. For
+instance, the following calculation provides the illusion that the
+full count matrix has been transformed, but actually only the cells
+visible in the output are calculated; the remaining data is on-disk.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" data-line-number="1"><span class="kw">log1p</span>(<span class="kw">assay</span>(loom, <span class="st">&quot;counts&quot;</span>))</a></code></pre></div>
+<pre><code>## &lt;58347 x 267360&gt; matrix of class DelayedMatrix and type &quot;double&quot;:
+##               [,1]      [,2]      [,3] ... [,267359] [,267360]
+##     [1,] 0.0000000 0.0000000 0.0000000   . 0.0000000 0.0000000
+##     [2,] 0.0000000 0.0000000 0.0000000   . 0.0000000 0.0000000
+##     [3,] 0.0000000 0.0000000 0.0000000   . 0.0000000 0.6931472
+##     [4,] 0.0000000 0.0000000 0.6931472   . 0.0000000 0.0000000
+##     [5,] 0.0000000 0.0000000 0.0000000   . 0.0000000 0.0000000
+##      ...         .         .         .   .         .         .
+## [58343,]         0         0         0   .         0         0
+## [58344,]         0         0         0   .         0         0
+## [58345,]         0         0         0   .         0         0
+## [58346,]         0         0         0   .         0         0
+## [58347,]         0         0         0   .         0         0</code></pre>
+<p>On the other hand, calculating library size (sum of reads in each
+column) requires all data to be accessed, and can be
+time-consuming. Here we calculate library sizes of the first 2000
+cells; we can expect processing time to scale linearly with number of
+cells</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" data-line-number="1"><span class="kw">system.time</span>({</a>
+<a class="sourceLine" id="cb41-2" data-line-number="2">    counts &lt;-<span class="st"> </span><span class="kw">assay</span>(loom, <span class="st">&quot;counts&quot;</span>)[, <span class="dv">1</span><span class="op">:</span><span class="dv">2000</span>]</a>
+<a class="sourceLine" id="cb41-3" data-line-number="3">    lib_size &lt;-<span class="st"> </span><span class="kw">colSums</span>(counts)</a>
+<a class="sourceLine" id="cb41-4" data-line-number="4">})</a></code></pre></div>
+<pre><code>##    user  system elapsed 
+##   2.917   0.584   3.510</code></pre>
+</div>
+<div id="subseting-and-in-memory-location-for-data-exploration" class="section level2">
+<h2><span class="header-section-number">4.5</span> Subseting and in-memory location for data exploration</h2>
+<p>In many scenarios it is appropriate to perform exploratory analysis on
+a subset of data. Here we select the first 2000 cells (fast) and
+coerce the counts matrix of the subset to a sparse in-memory
+representation.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" data-line-number="1">loom_subset &lt;-<span class="st"> </span>loom[, <span class="dv">1</span><span class="op">:</span><span class="dv">2000</span>]</a>
+<a class="sourceLine" id="cb43-2" data-line-number="2">m &lt;-<span class="st"> </span><span class="kw">assay</span>(loom_subset, <span class="st">&quot;counts&quot;</span>)</a>
+<a class="sourceLine" id="cb43-3" data-line-number="3"><span class="kw">assay</span>(loom_subset, <span class="st">&quot;counts&quot;</span>) &lt;-<span class="st"> </span><span class="kw">as</span>(m, <span class="st">&quot;dgCMatrix&quot;</span>)</a>
+<a class="sourceLine" id="cb43-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb43-5" data-line-number="5"><span class="kw">print</span>(loom_subset)</a></code></pre></div>
+<pre><code>## class: LoomExperiment 
+## dim: 58347 2000 
+## metadata(0):
+## assays(1): counts
+## rownames: NULL
+## rowData names(9): Accession Gene ... genus_species isgene
+## colnames: NULL
+## colData names(44): CellID analysis_protocol.protocol_core.protocol_id
+##   ... specimen_from_organism.provenance.document_id total_umis
+## rowGraphs(0): NULL
+## colGraphs(0): NULL</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" data-line-number="1"><span class="kw">assay</span>(loom_subset)[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]</a></code></pre></div>
+<pre><code>## dimnames(.) &lt;- NULL:  translated to 
+## dimnames(.) &lt;- list(NULL,NULL)  &lt;==&gt;  unname(.)</code></pre>
+<pre><code>## 10 x 5 sparse Matrix of class &quot;dgCMatrix&quot;
+##                
+##  [1,] . . . . .
+##  [2,] . . . . .
+##  [3,] . . . . .
+##  [4,] . . 1 . .
+##  [5,] . . . . .
+##  [6,] . . . . .
+##  [7,] . . . . .
+##  [8,] . . . . .
+##  [9,] . . . . .
+## [10,] . . . . .</code></pre>
+<p>Exploratory analysis can then proceed quickly, e.g., calculating
+library size</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb48-1" data-line-number="1"><span class="kw">system.time</span>({</a>
+<a class="sourceLine" id="cb48-2" data-line-number="2">    counts &lt;-<span class="st"> </span><span class="kw">assay</span>(loom_subset, <span class="st">&quot;counts&quot;</span>)</a>
+<a class="sourceLine" id="cb48-3" data-line-number="3">    lib_size &lt;-<span class="st"> </span><span class="kw">colSums</span>(counts)</a>
+<a class="sourceLine" id="cb48-4" data-line-number="4">})</a></code></pre></div>
+<pre><code>## dimnames(.) &lt;- NULL:  translated to 
+## dimnames(.) &lt;- list(NULL,NULL)  &lt;==&gt;  unname(.)</code></pre>
+<pre><code>##    user  system elapsed 
+##   0.017   0.000   0.018</code></pre>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" data-line-number="1"><span class="kw">range</span>(lib_size)</a></code></pre></div>
+<pre><code>## [1]   100 44053</code></pre>
+</div>
+<div id="exploration-of-column-cell-annotations" class="section level2">
+<h2><span class="header-section-number">4.6</span> Exploration of column (cell) annotations</h2>
+<p>Return to the full data set</p>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" data-line-number="1">loom</a></code></pre></div>
+<pre><code>## class: LoomExperiment 
+## dim: 58347 267360 
+## metadata(0):
+## assays(1): counts
+## rownames: NULL
+## rowData names(9): Accession Gene ... genus_species isgene
+## colnames: NULL
+## colData names(44): CellID analysis_protocol.protocol_core.protocol_id
+##   ... specimen_from_organism.provenance.document_id total_umis
+## rowGraphs(0): NULL
+## colGraphs(0): NULL</code></pre>
+<p>We will use the ‘tidyverse’ approach to data management, with data
+represented as a <code>tibble</code> (a better-behaving <code>data.frame</code>) and a
+‘pipe’ (<code>%&gt;%</code>) connecting the output of one command with the input of
+the next.</p>
+<p>The <code>colData()</code> accessor provides annotations about each cell of the
+<code>LoomExperiment</code>. Extract that information as a <code>tibble</code> so that we
+can explore the data in some detail.</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" data-line-number="1">tbl &lt;-</a>
+<a class="sourceLine" id="cb55-2" data-line-number="2"><span class="st">    </span><span class="kw">colData</span>(loom) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb55-3" data-line-number="3"><span class="st">    </span><span class="kw">as_tibble</span>()</a>
+<a class="sourceLine" id="cb55-4" data-line-number="4"><span class="kw">print</span>(tbl)</a></code></pre></div>
+<pre><code>## # A tibble: 267,360 x 44
+##    CellID analysis_protoc… analysis_protoc… analysis_workin… barcode bundle_uuid
+##    &lt;chr&gt;  &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;            &lt;chr&gt;   &lt;chr&gt;      
+##  1 00016… optimus_v1.3.5   6e9a0638-4dcd-4… blessed          ATTGGA… c5df0207-1…
+##  2 00027… optimus_v1.3.5   aaccd734-ef95-4… blessed          CGAATG… dde6b553-f…
+##  3 0007f… optimus_v1.3.5   d9514087-a5b9-4… blessed          GATTCA… 2677fd9d-6…
+##  4 000b8… optimus_v1.3.5   b115679e-1139-4… blessed          CGGCTA… a4606cc6-c…
+##  5 000fa… optimus_v1.3.5   b115679e-1139-4… blessed          GTATTC… a4606cc6-c…
+##  6 00155… optimus_v1.3.5   b115679e-1139-4… blessed          GAGCAG… a4606cc6-c…
+##  7 0019d… optimus_v1.3.5   c8f7a0e8-3a4f-4… blessed          TAAACC… 9137888e-c…
+##  8 001a0… optimus_v1.3.5   c8f7a0e8-3a4f-4… blessed          TGCTAC… 9137888e-c…
+##  9 001b9… optimus_v1.3.5   9944ebca-03e8-4… blessed          ATTATC… 88f037c4-9…
+## 10 001d3… optimus_v1.3.5   0989c692-05a5-4… blessed          GGTATT… 8c6e51e8-e…
+## # … with 267,350 more rows, and 38 more variables: bundle_version &lt;chr&gt;,
+## #   cell_suspension.genus_species.ontology &lt;chr&gt;,
+## #   cell_suspension.genus_species.ontology_label &lt;chr&gt;,
+## #   cell_suspension.provenance.document_id &lt;chr&gt;, derived_organ_label &lt;chr&gt;,
+## #   derived_organ_ontology &lt;chr&gt;, derived_organ_parts_label &lt;chr&gt;,
+## #   derived_organ_parts_ontology &lt;chr&gt;,
+## #   donor_organism.development_stage.ontology &lt;chr&gt;,
+## #   donor_organism.development_stage.ontology_label &lt;chr&gt;,
+## #   donor_organism.diseases.ontology &lt;chr&gt;,
+## #   donor_organism.diseases.ontology_label &lt;chr&gt;,
+## #   donor_organism.human_specific.ethnicity.ontology &lt;chr&gt;,
+## #   donor_organism.human_specific.ethnicity.ontology_label &lt;chr&gt;,
+## #   donor_organism.is_living &lt;chr&gt;,
+## #   donor_organism.provenance.document_id &lt;chr&gt;, donor_organism.sex &lt;chr&gt;,
+## #   dss_bundle_fqid &lt;chr&gt;, emptydrops_is_cell &lt;chr&gt;, file_uuid &lt;chr&gt;,
+## #   file_version &lt;chr&gt;, genes_detected &lt;int&gt;,
+## #   library_preparation_protocol.end_bias &lt;chr&gt;,
+## #   library_preparation_protocol.input_nucleic_acid_molecule.ontology &lt;chr&gt;,
+## #   library_preparation_protocol.input_nucleic_acid_molecule.ontology_label &lt;chr&gt;,
+## #   library_preparation_protocol.library_construction_method.ontology &lt;chr&gt;,
+## #   library_preparation_protocol.library_construction_method.ontology_label &lt;chr&gt;,
+## #   library_preparation_protocol.provenance.document_id &lt;chr&gt;,
+## #   library_preparation_protocol.strand &lt;chr&gt;,
+## #   project.project_core.project_short_name &lt;chr&gt;,
+## #   project.project_core.project_title &lt;chr&gt;,
+## #   project.provenance.document_id &lt;chr&gt;,
+## #   specimen_from_organism.organ.ontology &lt;chr&gt;,
+## #   specimen_from_organism.organ.ontology_label &lt;chr&gt;,
+## #   specimen_from_organism.organ_parts.ontology &lt;chr&gt;,
+## #   specimen_from_organism.organ_parts.ontology_label &lt;chr&gt;,
+## #   specimen_from_organism.provenance.document_id &lt;chr&gt;, total_umis &lt;dbl&gt;</code></pre>
+</div>
+<div id="invariant-cell-annotations" class="section level2">
+<h2><span class="header-section-number">4.7</span> Invariant cell annotations</h2>
+<p>We have extensive data (44 columns) on each cell. Many of the columns
+are constant across all cells. We use the function <code>select_if()</code> from
+the <code>dplyr</code> package to select columns that satisfy the expression
+<code>length(unique(.)) == 1</code>, where <code>.</code> refers to each column in the
+tibble.</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" data-line-number="1">tbl <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb57-2" data-line-number="2"><span class="st">    </span><span class="co">## select columns that have exactly one value</span></a>
+<a class="sourceLine" id="cb57-3" data-line-number="3"><span class="st">    </span><span class="kw">select_if</span>(<span class="op">~</span><span class="st"> </span><span class="kw">length</span>(<span class="kw">unique</span>(.)) <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb57-4" data-line-number="4"><span class="st">    </span><span class="kw">distinct</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb57-5" data-line-number="5"><span class="st">    </span><span class="co">## create a new tibble of column name / value pairs to summarize these</span></a>
+<a class="sourceLine" id="cb57-6" data-line-number="6"><span class="st">    </span>tidyr<span class="op">::</span><span class="kw">pivot_longer</span>(<span class="kw">everything</span>()) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb57-7" data-line-number="7"><span class="st">    </span><span class="kw">print</span>()</a></code></pre></div>
+<pre><code>## # A tibble: 17 x 2
+##    name                                  value                                  
+##    &lt;chr&gt;                                 &lt;chr&gt;                                  
+##  1 analysis_protocol.protocol_core.prot… optimus_v1.3.5                         
+##  2 analysis_working_group_approval_stat… blessed                                
+##  3 cell_suspension.genus_species.ontolo… NCBITaxon:9606                         
+##  4 cell_suspension.genus_species.ontolo… Homo sapiens                           
+##  5 donor_organism.development_stage.ont… EFO:0001272                            
+##  6 donor_organism.development_stage.ont… adult                                  
+##  7 donor_organism.sex                    male                                   
+##  8 library_preparation_protocol.end_bias 3 prime tag                            
+##  9 library_preparation_protocol.input_n… OBI:0000869                            
+## 10 library_preparation_protocol.input_n… polyA RNA extract                      
+## 11 library_preparation_protocol.library… EFO:0009310                            
+## 12 library_preparation_protocol.library… 10X v2 sequencing                      
+## 13 library_preparation_protocol.provena… e953a093-f5ab-46df-9223-a492f4775d44   
+## 14 library_preparation_protocol.strand   first                                  
+## 15 project.project_core.project_short_n… HumanTissueTcellActivation             
+## 16 project.project_core.project_title    A single-cell reference map of transcr…
+## 17 project.provenance.document_id        4a95101c-9ffc-4f30-a809-f04518a23803</code></pre>
+</div>
+<div id="donor-provenance-and-organ-labels" class="section level2">
+<h2><span class="header-section-number">4.8</span> Donor provenance and organ labels</h2>
+<p>The variable columns are also easily selected</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb59-1" data-line-number="1">tbl_var &lt;-</a>
+<a class="sourceLine" id="cb59-2" data-line-number="2"><span class="st">    </span>tbl <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb59-3" data-line-number="3"><span class="st">    </span><span class="kw">select_if</span>(<span class="op">~</span><span class="st"> </span><span class="kw">length</span>(<span class="kw">unique</span>(.)) <span class="op">!=</span><span class="st"> </span><span class="dv">1</span>)</a>
+<a class="sourceLine" id="cb59-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb59-5" data-line-number="5"><span class="kw">print</span>(tbl_var)</a></code></pre></div>
+<pre><code>## # A tibble: 267,360 x 27
+##    CellID analysis_protoc… barcode bundle_uuid bundle_version cell_suspension…
+##    &lt;chr&gt;  &lt;chr&gt;            &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt;          &lt;chr&gt;           
+##  1 00016… 6e9a0638-4dcd-4… ATTGGA… c5df0207-1… 2019-09-14T09… 788f3a1c-9369-4…
+##  2 00027… aaccd734-ef95-4… CGAATG… dde6b553-f… 2019-09-14T09… b72a54dc-69d7-4…
+##  3 0007f… d9514087-a5b9-4… GATTCA… 2677fd9d-6… 2019-09-14T11… 10510764-ed13-4…
+##  4 000b8… b115679e-1139-4… CGGCTA… a4606cc6-c… 2019-09-14T11… ac1e511f-fa9e-4…
+##  5 000fa… b115679e-1139-4… GTATTC… a4606cc6-c… 2019-09-14T11… ac1e511f-fa9e-4…
+##  6 00155… b115679e-1139-4… GAGCAG… a4606cc6-c… 2019-09-14T11… ac1e511f-fa9e-4…
+##  7 0019d… c8f7a0e8-3a4f-4… TAAACC… 9137888e-c… 2019-09-14T09… 78b08aea-c194-4…
+##  8 001a0… c8f7a0e8-3a4f-4… TGCTAC… 9137888e-c… 2019-09-14T09… 78b08aea-c194-4…
+##  9 001b9… 9944ebca-03e8-4… ATTATC… 88f037c4-9… 2019-09-14T10… b29ca10d-b611-4…
+## 10 001d3… 0989c692-05a5-4… GGTATT… 8c6e51e8-e… 2019-09-14T10… 7e5f6787-ab75-4…
+## # … with 267,350 more rows, and 21 more variables: derived_organ_label &lt;chr&gt;,
+## #   derived_organ_ontology &lt;chr&gt;, derived_organ_parts_label &lt;chr&gt;,
+## #   derived_organ_parts_ontology &lt;chr&gt;, donor_organism.diseases.ontology &lt;chr&gt;,
+## #   donor_organism.diseases.ontology_label &lt;chr&gt;,
+## #   donor_organism.human_specific.ethnicity.ontology &lt;chr&gt;,
+## #   donor_organism.human_specific.ethnicity.ontology_label &lt;chr&gt;,
+## #   donor_organism.is_living &lt;chr&gt;,
+## #   donor_organism.provenance.document_id &lt;chr&gt;, dss_bundle_fqid &lt;chr&gt;,
+## #   emptydrops_is_cell &lt;chr&gt;, file_uuid &lt;chr&gt;, file_version &lt;chr&gt;,
+## #   genes_detected &lt;int&gt;, specimen_from_organism.organ.ontology &lt;chr&gt;,
+## #   specimen_from_organism.organ.ontology_label &lt;chr&gt;,
+## #   specimen_from_organism.organ_parts.ontology &lt;chr&gt;,
+## #   specimen_from_organism.organ_parts.ontology_label &lt;chr&gt;,
+## #   specimen_from_organism.provenance.document_id &lt;chr&gt;, total_umis &lt;dbl&gt;</code></pre>
+<p>The <code>donor_organism.provenance.documented_id</code> column identifies
+indivuals contributing cells, so the cells per individual are</p>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb61-1" data-line-number="1">tbl <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb61-2" data-line-number="2"><span class="st">    </span><span class="kw">count</span>(donor_organism.provenance.document_id) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb61-3" data-line-number="3"><span class="st">    </span><span class="kw">print</span>()</a></code></pre></div>
+<pre><code>## # A tibble: 4 x 2
+##   donor_organism.provenance.document_id      n
+##   &lt;chr&gt;                                  &lt;int&gt;
+## 1 4b7a3de7-94db-4507-b1f9-c3931f9f3aa5   10745
+## 2 8b5774b2-2aba-4b90-8fa0-c7f69207802c   45676
+## 3 95822e01-44a7-420b-92fc-b001460b1d13  199515
+## 4 b09a1e10-3c38-4bb3-8553-d762810a6fb7   11424</code></pre>
+<p>The tissues represented in the experiment are summarized as</p>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb63-1" data-line-number="1">tbl <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb63-2" data-line-number="2"><span class="st">    </span><span class="kw">count</span>(derived_organ_label) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb63-3" data-line-number="3"><span class="st">    </span><span class="kw">print</span>()</a></code></pre></div>
+<pre><code>## # A tibble: 4 x 2
+##   derived_organ_label        n
+##   &lt;chr&gt;                  &lt;int&gt;
+## 1 blood                  22169
+## 2 hematopoietic system   82723
+## 3 lung                   80774
+## 4 mediastinal lymph node 81694</code></pre>
+<p>The occurrence of organism and organ shows that two samples provided
+blood, and tow samples provided hematopoietic / lung / lymph node.</p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" data-line-number="1">tbl <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb65-2" data-line-number="2"><span class="st">    </span><span class="kw">count</span>(donor_organism.provenance.document_id, derived_organ_label) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb65-3" data-line-number="3"><span class="st">    </span>tidyr<span class="op">::</span><span class="kw">pivot_wider</span>(</a>
+<a class="sourceLine" id="cb65-4" data-line-number="4">               <span class="dt">names_from =</span> <span class="st">&quot;derived_organ_label&quot;</span>,</a>
+<a class="sourceLine" id="cb65-5" data-line-number="5">               <span class="dt">values_from =</span> <span class="st">&quot;n&quot;</span></a>
+<a class="sourceLine" id="cb65-6" data-line-number="6">           ) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb65-7" data-line-number="7"><span class="st">    </span><span class="kw">print</span>()</a></code></pre></div>
+<pre><code>## # A tibble: 4 x 5
+##   donor_organism.provenance… blood `hematopoietic sys…  lung `mediastinal lymph…
+##   &lt;chr&gt;                      &lt;int&gt;               &lt;int&gt; &lt;int&gt;               &lt;int&gt;
+## 1 4b7a3de7-94db-4507-b1f9-c… 10745                  NA    NA                  NA
+## 2 8b5774b2-2aba-4b90-8fa0-c…    NA               12559 15257               17860
+## 3 95822e01-44a7-420b-92fc-b…    NA               70164 65517               63834
+## 4 b09a1e10-3c38-4bb3-8553-d… 11424                  NA    NA                  NA</code></pre>
+</div>
+<div id="sub-setting-data-based-on-cell-attributes" class="section level2">
+<h2><span class="header-section-number">4.9</span> Sub-setting data based on cell attributes</h2>
+<p>With this exploration, it is then easy to create a subset of the data
+for further exploration, e.g., focusing on blood</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" data-line-number="1">blood &lt;-</a>
+<a class="sourceLine" id="cb67-2" data-line-number="2"><span class="st">    </span>loom <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb67-3" data-line-number="3"><span class="st">    </span><span class="kw">subset</span>(, derived_organ_label <span class="op">%in%</span><span class="st"> &quot;blood&quot;</span>)</a>
+<a class="sourceLine" id="cb67-4" data-line-number="4"></a>
+<a class="sourceLine" id="cb67-5" data-line-number="5"><span class="kw">print</span>(blood)</a></code></pre></div>
+<pre><code>## class: LoomExperiment 
+## dim: 58347 22169 
+## metadata(0):
+## assays(1): counts
+## rownames: NULL
+## rowData names(9): Accession Gene ... genus_species isgene
+## colnames: NULL
+## colData names(44): CellID analysis_protocol.protocol_core.protocol_id
+##   ... specimen_from_organism.provenance.document_id total_umis
+## rowGraphs(0): NULL
+## colGraphs(0): NULL</code></pre>
+</div>
+<div id="information-about-the-packages-used-in-this-session" class="section level2">
+<h2><span class="header-section-number">4.10</span> Information about the packages used in this session</h2>
+<p>The <em>R</em> command <code>sessionInfo()</code> captures information about the
+versions of software used in the current session. This can be valuable
+for performing reproducible analysis.</p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" data-line-number="1"><span class="kw">sessionInfo</span>()</a></code></pre></div>
+<pre><code>## R version 4.0.2 Patched (2020-06-24 r78747)
+## Platform: x86_64-apple-darwin17.7.0 (64-bit)
+## Running under: macOS High Sierra 10.13.6
+## 
+## Matrix products: default
+## BLAS:   /Users/ma38727/bin/R-4-0-branch/lib/libRblas.dylib
+## LAPACK: /Users/ma38727/bin/R-4-0-branch/lib/libRlapack.dylib
+## 
+## locale:
+## [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+## 
+## attached base packages:
+## [1] parallel  stats4    stats     graphics  grDevices utils     datasets 
+## [8] methods   base     
+## 
+## other attached packages:
+##  [1] dplyr_1.0.0                 LoomExperiment_1.6.0       
+##  [3] rtracklayer_1.48.0          rhdf5_2.32.2               
+##  [5] BiocFileCache_1.12.0        dbplyr_1.4.4               
+##  [7] scran_1.16.0                scater_1.16.2              
+##  [9] ggplot2_3.3.2               scRNAseq_2.2.0             
+## [11] SingleCellExperiment_1.10.1 SummarizedExperiment_1.18.2
+## [13] DelayedArray_0.14.1         matrixStats_0.56.0         
+## [15] Biobase_2.48.0              GenomicRanges_1.40.0       
+## [17] GenomeInfoDb_1.24.2         IRanges_2.22.2             
+## [19] S4Vectors_0.26.1            BiocGenerics_0.34.0        
+## 
+## loaded via a namespace (and not attached):
+##  [1] bitops_1.0-6                  bit64_0.9-7.1                
+##  [3] httr_1.4.1                    tools_4.0.2                  
+##  [5] utf8_1.1.4                    R6_2.4.1                     
+##  [7] irlba_2.3.3                   HDF5Array_1.16.1             
+##  [9] vipor_0.4.5                   DBI_1.1.0                    
+## [11] colorspace_1.4-1              withr_2.2.0                  
+## [13] tidyselect_1.1.0              gridExtra_2.3                
+## [15] bit_1.1-15.2                  curl_4.3                     
+## [17] compiler_4.0.2                cli_2.0.2                    
+## [19] BiocNeighbors_1.6.0           labeling_0.3                 
+## [21] bookdown_0.20                 scales_1.1.1                 
+## [23] rappdirs_0.3.1                Rsamtools_2.4.0              
+## [25] stringr_1.4.0                 digest_0.6.25                
+## [27] rmarkdown_2.3                 XVector_0.28.0               
+## [29] pkgconfig_2.0.3               htmltools_0.5.0              
+## [31] fastmap_1.0.1                 limma_3.44.3                 
+## [33] rlang_0.4.7                   rstudioapi_0.11              
+## [35] RSQLite_2.2.0                 shiny_1.5.0                  
+## [37] DelayedMatrixStats_1.10.1     farver_2.0.3                 
+## [39] generics_0.0.2                BiocParallel_1.22.0          
+## [41] RCurl_1.98-1.2                magrittr_1.5                 
+## [43] BiocSingular_1.4.0            GenomeInfoDbData_1.2.3       
+## [45] Matrix_1.2-18                 fansi_0.4.1                  
+## [47] Rhdf5lib_1.10.1               Rcpp_1.0.5                   
+## [49] ggbeeswarm_0.6.0              munsell_0.5.0                
+## [51] viridis_0.5.1                 lifecycle_0.2.0              
+## [53] stringi_1.4.6                 yaml_2.2.1                   
+## [55] edgeR_3.30.3                  zlibbioc_1.34.0              
+## [57] AnnotationHub_2.20.0          grid_4.0.2                   
+## [59] blob_1.2.1                    promises_1.1.1               
+## [61] dqrng_0.2.1                   ExperimentHub_1.14.0         
+## [63] crayon_1.3.4                  lattice_0.20-41              
+## [65] Biostrings_2.56.0             cowplot_1.0.0                
+## [67] locfit_1.5-9.4                knitr_1.29                   
+## [69] pillar_1.4.6                  igraph_1.2.5                 
+## [71] XML_3.99-0.4                  glue_1.4.1                   
+## [73] BiocVersion_3.11.1            evaluate_0.14                
+## [75] BiocManager_1.30.10           vctrs_0.3.2                  
+## [77] httpuv_1.5.4                  tidyr_1.1.0                  
+## [79] gtable_0.3.0                  purrr_0.3.4                  
+## [81] assertthat_0.2.1              xfun_0.15                    
+## [83] rsvd_1.0.3                    mime_0.9                     
+## [85] xtable_1.8-4                  later_1.1.0.1                
+## [87] viridisLite_0.3.0             tibble_3.0.3                 
+## [89] GenomicAlignments_1.24.0      AnnotationDbi_1.50.1         
+## [91] beeswarm_0.2.3                memoise_1.1.0                
+## [93] statmod_1.4.34                ellipsis_0.3.1               
+## [95] interactiveDisplayBase_1.26.3</code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="using-an-existing-workspace.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="the-anvil-r-bioconductor-package.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
