@@ -1,7 +1,16 @@
 # Formal work flows: Human Cell Atlas 'Optimus' pipeline
 
+Check out the BCC [dockstore workshop][1] for information on running
+workflows in Terra.
+
+[1]: https://bcc2020.sched.com/event/c4pR/reproducible-analysis-in-the-cloud-with-dockstore-and-terra
+
 ## The HCA Optimus single cell analysis pipeline
 
-## Running a work flow
+A future iteration of this workshop will use Human Cell Atlas data to
+process BAM files to count matrices, and to explore the resulting data
+in _R / Bioconductor_
 
-## Using data in _R_
+### Running a work flow
+
+### Using data in _R_

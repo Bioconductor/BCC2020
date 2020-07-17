@@ -30,7 +30,7 @@ We'll motivate the use of `AnVIL` using a previous work flow, and use
 of the `dplyr` package. The required packages can be installed with
 
 ```{r install_2}
-packages <- c("scRNAseq", "scater", "scran", "uwot", "dplyr")
+packages <- c("scRNAseq", "scater", "scran", "dplyr")
 need <- packages[!packages %in% rownames(installed.packages())]
 BiocManager::install(need, update = FALSE)
 ```

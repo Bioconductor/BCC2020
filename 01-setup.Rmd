@@ -1,19 +1,25 @@
 # Prerequisites
 
+In this section we learn about
+
+- Creating a billing account
+- Creating an AnVIL account
+
 ## Create a google 'billing account'
 
 Generally, cloud resources cost money, and therefore require a method
 of payment. But DON'T WORRY, we won't incur any expenses during this
 course.
 
-- [Create a google account][1]
+- [Create a google account][1] or use your google-backed institutional
+  account.
 
 [1]: https://support.google.com/accounts/answer/27441?hl=en
 
 ## Create an AnVIL account
 
 - Visit https://anvil.terra.bio/#
-- Select the 'Hamburger' menu in the top left corner
+- Select the 'HAMBURGER' menu in the top left corner
 - Choose 'Sign in with Google'
 
     - Multiple Google accounts? Make sure to use the one you've
@@ -21,8 +27,9 @@ course.
       
 ## Confirm billing project
 
-- Under the hamburger, select your user name and 'Billing'
+- Under the hamburger, select your user name and 'Billing',
+  https://anvil.terra.bio/#billing
 - Confirm that 'bioconductor-rpci-bcc2020' is an account
 
-    - No account? Use REMO chat directly with Lori, providing the
-      email address in your AnVIL 'Profile'.
+    - No account? Use REMO to chat directly with Nitesh Turaga or Lori
+      Shepherd, providing the email address in your AnVIL 'Profile'.

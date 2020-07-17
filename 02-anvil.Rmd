@@ -16,19 +16,25 @@ In this section we learn about
 
 ## Use an existing workspace
 
+Visit the WORKSPACES page https://anvil.terra.bio/#workspaces
+
 Search for the 'Bioconductor' featured workspace.
 
 - Choose the HAMBURGER menu, 'Your workspaces' item
 - Search (at the top of the screen) for 'Bioconductor-BCC2020'
 - This should appear under 'My Workspaces'
+- Problems?
 
-    - Problems? Provide your email account to Lori or Nitesh in REMO chat
+    - Refresh your browser window & cache, with, e.g., `command-shift-R`
+    - Provide your email account to Lori or Nitesh in REMO chat
+
+- Shortcut: https://anvil.terra.bio/#workspaces?filter=Bioconductor-BCC2020
 
 Clone 
 
 - Choose the TEARDROP associated with this workspace
 - Select 'Clone'
-- Name the workspace, e.g,. `Bioconductor-bcc2020-july-18-2020` or similar.
+- Name the workspace, e.g,. `Bioconductor-bcc2020-<YOUR-NAME>` or similar.
 - Associate the cloned workspace with the `bioconductor-rpci-bcc2020`
   billing account
 
