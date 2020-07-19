@@ -43,7 +43,7 @@ integration with a users' own data sets.
 
 ## Incoming expectations {-}
 
-Participants should be comfortable working with R and RStudio.  Some
+Participants should be comfortable working with R.  Some
 familiarity with Bioconductor is helpful but not required.  No prior
 cloud-based experience is necessary. We will use the AnVIL cloud,
 which requires a modern web browser.
@@ -54,14 +54,14 @@ The AnVIL cloud
 
 1. AnVIL workspaces
 
-1. RStudio and Jupyter Runtimes
+1. Jupyter Runtimes
 
 1. The AnVIL package for cloud access
 
 Cloud-based analysis
 
-1. Single cell exploratory analysis in RStudio
+1. Single cell exploratory analysis
 
-1. Formal workflows for large-scale analysis
+1. (Formal workflows for large-scale analysis)
 
 [Bioconductor]: https://bioconductor.org
